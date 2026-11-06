@@ -1,0 +1,182 @@
+/* Site vitrine · thème Alpin. Classes préfixées v- pour ne pas croiser l'app. */
+
+.vitrine { background: var(--bg); color: var(--ink); }
+.v-section { padding: 104px 0; position: relative; }
+.v-blanc { background: #fff; }
+.v-intro { max-width: 680px; margin-bottom: 52px; }
+.v-intro h2, .v-moteur h2, .v-montres h2 { font-size: clamp(30px, 4vw, 48px); font-stretch: 110%; letter-spacing: -0.035em; line-height: 1.04; text-wrap: balance; }
+.v-intro > p:last-child { font-size: 18px; color: var(--ink-2); margin-top: 16px; line-height: 1.55; }
+.v-surtitre { font-size: 14px; font-weight: 750; color: var(--bleu); margin-bottom: 12px; }
+
+/* ───── Accroche ───── */
+.v-hero { position: relative; overflow: hidden; padding-top: 56px; background: linear-gradient(180deg, #FFFFFF 0%, #EEF4FF 45%, #DCE8FF 100%); }
+.v-hero-grille { position: relative; z-index: 2; display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: 48px; align-items: center; }
+.v-pastille { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px 6px 10px; border-radius: 99px; background: #fff; box-shadow: var(--ombre-carte);
+  font-size: 13.5px; font-weight: 700; color: var(--bleu); animation: monter .6s var(--doux) backwards; }
+.v-pastille span { width: 8px; height: 8px; border-radius: 50%; background: var(--bleu); box-shadow: 0 0 0 4px rgba(29, 91, 255, .18); animation: pulse-point 2s infinite; }
+@keyframes pulse-point { 50% { box-shadow: 0 0 0 7px rgba(29, 91, 255, .05); } }
+.v-hero h1 { font-size: clamp(42px, 6vw, 80px); font-stretch: 112%; line-height: .98; letter-spacing: -0.045em; margin-top: 22px; max-width: 12ch; color: var(--bleu-nuit);
+  text-wrap: balance; animation: monter .8s .1s var(--doux) backwards; }
+.v-lead { font-size: 19px; line-height: 1.55; color: var(--ink-2); margin-top: 22px; max-width: 48ch; animation: monter .8s .22s var(--doux) backwards; }
+.v-cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 30px; animation: monter .8s .34s var(--doux) backwards; }
+.v-preuves { list-style: none; padding: 0; margin: 26px 0 0; display: flex; gap: 18px; flex-wrap: wrap; font-size: 14px; font-weight: 600; color: var(--ink-2); animation: monter .8s .46s var(--doux) backwards; }
+.v-preuves li { display: inline-flex; align-items: center; gap: 6px; }
+.v-preuves svg { width: 16px; height: 16px; color: var(--bleu); }
+.v-hero .paysage { margin-top: clamp(-260px, -16vw, -40px); position: relative; z-index: 1; }
+.paysage text { paint-order: stroke; stroke: rgba(10, 26, 63, .55); stroke-width: 4px; }
+@media (max-width: 960px) { .v-hero-grille { grid-template-columns: minmax(0, 1fr); } .v-hero .paysage { margin-top: -80px; } }
+
+/* Téléphone d'aperçu */
+.v-telephone { justify-self: center; width: 300px; padding: 11px; border-radius: 46px; background: linear-gradient(145deg, #1B2A55, #050B1E); position: relative; z-index: 3;
+  box-shadow: 0 50px 90px -30px rgba(10, 26, 63, .55), inset 0 0 0 2px rgba(255, 255, 255, .08); animation: flotter 7s ease-in-out infinite, monter 1s .3s var(--doux) backwards; transform: rotate(2deg); }
+@keyframes flotter { 50% { transform: rotate(2deg) translateY(-10px); } }
+.v-ecran { position: relative; border-radius: 36px; background: var(--bg); padding: 40px 14px 18px; display: flex; flex-direction: column; gap: 10px; overflow: hidden; min-height: 560px; }
+.v-encoche { position: absolute; top: 10px; left: 50%; width: 90px; height: 24px; margin-left: -45px; border-radius: 14px; background: #050B1E; }
+.v-tel-date { font-size: 11px; color: var(--ink-3); font-weight: 650; }
+.v-tel-titre { font-size: 22px; font-weight: 850; letter-spacing: -0.03em; margin-top: -6px; }
+.v-tel-etape { display: flex; gap: 10px; align-items: center; background: #fff; border-radius: 16px; padding: 10px 12px; box-shadow: var(--ombre-carte); }
+.v-tel-etape i { flex: none; width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; border: 2px solid var(--line-2); color: var(--ink-3); font-style: normal; }
+.v-tel-etape i svg { width: 15px; height: 15px; }
+.v-tel-etape.fait i { background: var(--bleu); border-color: var(--bleu); color: #fff; }
+.v-tel-etape small, .v-tel-seance small { display: block; font-size: 10.5px; color: var(--ink-3); font-weight: 650; }
+.v-tel-etape b { font-size: 13px; }
+.v-tel-seance { background: var(--degrade-nuit); color: #fff; border-radius: 20px; padding: 14px; box-shadow: 0 16px 30px -14px rgba(15, 59, 209, .7); }
+.v-tel-seance small { color: #B9CBF5; }
+.v-tel-seance b { display: block; font-size: 19px; font-weight: 850; margin-top: 4px; letter-spacing: -0.02em; }
+.v-tel-seance span { display: block; font-size: 11.5px; color: #D6E2FF; margin-top: 2px; }
+.v-tel-seance .v-intervalles { height: 46px; margin-top: 12px; }
+.v-tel-boutons { display: flex; gap: 6px; margin-top: 12px; }
+.v-tel-boutons em { font-style: normal; font-size: 10.5px; font-weight: 750; padding: 6px 9px; border-radius: 9px; background: #fff; color: var(--bleu); }
+.v-tel-boutons em + em { background: rgba(255, 255, 255, .14); color: #fff; }
+.v-toast { position: absolute; left: 14px; right: 14px; top: 46px; display: flex; gap: 8px; align-items: center; padding: 10px 12px; border-radius: 14px; background: var(--bleu-nuit); color: #fff;
+  font-size: 12px; font-weight: 700; box-shadow: 0 12px 24px -10px rgba(0, 0, 0, .5); animation: toast 7s 1.6s ease-in-out infinite backwards; }
+.v-toast svg { width: 16px; height: 16px; color: #7DD3FC; }
+@keyframes toast { 0%, 100% { opacity: 0; transform: translateY(-14px); } 8%, 40% { opacity: 1; transform: none; } 48% { opacity: 0; transform: translateY(-14px); } }
+@media (max-width: 960px) { .v-telephone { transform: none; animation: monter 1s .3s var(--doux) backwards; } }
+@media (max-width: 420px) { .v-telephone { width: 270px; } .v-ecran { min-height: 520px; } }
+
+/* Intervalles (profil de séance) */
+.v-intervalles { display: flex; align-items: flex-end; gap: 2px; height: 58px; }
+.v-intervalles i { display: block; border-radius: 4px 4px 1px 1px; min-width: 2px; }
+
+/* ───── Journée type ───── */
+.v-journee { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; position: relative; }
+.v-journee::before { content: ''; position: absolute; left: 3%; right: 3%; top: 19px; height: 2px; background: linear-gradient(90deg, var(--bleu), var(--cyan)); opacity: .35; }
+.v-moment { position: relative; display: flex; flex-direction: column; }
+.v-moment-tete { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+.v-heure { font-size: 14px; font-weight: 850; color: var(--bleu-nuit); background: var(--bg); padding-right: 8px; position: relative; font-variant-numeric: tabular-nums; }
+.v-moment-icone { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; background: var(--bleu); color: #fff; position: relative; box-shadow: 0 0 0 6px var(--bg), 0 10px 20px -8px rgba(29, 91, 255, .7); }
+.v-moment-icone svg { width: 19px; height: 19px; }
+.v-moment h3 { font-size: 18px; margin-top: 16px; letter-spacing: -0.015em; }
+.v-moment p { font-size: 14.5px; color: var(--ink-2); margin-top: 6px; line-height: 1.5; }
+.v-visuel { height: 128px; border-radius: 20px; background: #fff; box-shadow: var(--ombre-carte); border: 1px solid rgba(29, 91, 255, .07); padding: 14px; display: flex; flex-direction: column; justify-content: center; gap: 8px;
+  transition: transform .25s var(--doux), box-shadow .25s; }
+.v-moment:hover .v-visuel { transform: translateY(-4px); box-shadow: var(--ombre-haute); }
+.v-visuel small { font-size: 11.5px; color: var(--ink-3); font-weight: 650; }
+.v-vis-bilan div { display: flex; gap: 5px; }
+.v-vis-bilan span { flex: 1; text-align: center; font-size: 11.5px; font-weight: 700; padding: 9px 2px; border-radius: 10px; background: var(--surface-2); border: 1.5px solid var(--line); color: var(--ink-2); }
+.v-vis-bilan span.on { background: var(--bleu); border-color: var(--bleu); color: #fff; }
+.v-vis-adapte s { font-size: 12.5px; color: var(--ink-3); text-decoration-color: var(--z5); }
+.v-vis-adapte b { font-size: 14px; color: var(--bleu); }
+.v-vis-montre { align-items: center; background: var(--bleu-glace); }
+.v-mini-montre { width: 92px; height: 92px; border-radius: 50%; background: #0A1328; color: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  box-shadow: 0 0 0 5px #2A3550, 0 10px 20px -8px rgba(0, 0, 0, .5); }
+.v-mini-montre b { font-size: 22px; font-weight: 850; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.v-mini-montre small { font-size: 9.5px; color: #9EC5FF; }
+.v-vis-guide { position: relative; }
+.v-vis-guide .v-intervalles { height: 70px; }
+.v-curseur { position: absolute; top: 18px; bottom: 18px; left: 14px; width: 2px; background: var(--bleu-nuit); border-radius: 2px; animation: parcourir 6s linear infinite; }
+@keyframes parcourir { to { left: calc(100% - 16px); } }
+.v-vis-analyse { flex-direction: row; align-items: center; gap: 12px; }
+.v-vis-analyse b { font-size: 14px; } .v-vis-analyse small { display: block; margin-top: 2px; }
+.v-jauge { flex: none; width: 64px; height: 64px; border-radius: 50%; display: grid; place-items: center; background: radial-gradient(closest-side, #fff 76%, transparent 77%), conic-gradient(var(--bleu) 94%, var(--bg-2) 0); }
+.v-jauge b { font-size: 15px; }
+@media (max-width: 1080px) { .v-journee { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 36px; } .v-journee::before { display: none; } }
+@media (max-width: 680px) {
+  .v-journee { grid-template-columns: minmax(0, 1fr); row-gap: 28px; padding-left: 0; }
+  .v-moment { display: grid; grid-template-columns: 40px minmax(0, 1fr); column-gap: 16px; }
+  .v-moment-tete { grid-row: 1 / 5; flex-direction: column-reverse; justify-content: flex-end; gap: 8px; margin: 0; }
+  .v-heure { padding: 0; font-size: 12.5px; }
+  .v-moment .v-visuel, .v-moment h3, .v-moment p { grid-column: 2; }
+  .v-moment h3 { margin-top: 12px; }
+}
+
+/* ───── Le moteur ───── */
+.v-nuit { background: radial-gradient(90% 80% at 100% 0%, #1B3FAE 0%, #0B1D52 45%, #060F2C 100%); color: #fff; overflow: hidden; }
+.v-nuit .topo { position: absolute; inset: 0; width: 100%; height: 100%; color: #7FA2F5; opacity: .1; pointer-events: none; }
+.v-nuit .v-surtitre { color: #7DD3FC; }
+.v-moteur { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 64px; align-items: center; }
+.v-texte-nuit { font-size: 17.5px; line-height: 1.6; color: #C6D4F5; margin-top: 18px; max-width: 54ch; }
+.v-regles { margin: 34px 0 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 28px; }
+.v-regles div { padding: 14px 0; border-top: 1px solid rgba(169, 196, 255, .18); }
+.v-regles dt { font-size: 26px; font-weight: 850; font-stretch: 112%; color: #fff; letter-spacing: -0.02em; }
+.v-regles dd { margin: 4px 0 0; font-size: 14px; color: #A9BCE6; }
+.v-moteur-visuel { display: flex; flex-direction: column; }
+.v-frise { display: flex; gap: 6px; }
+.v-frise div { min-width: 52px; }
+.v-frise small { white-space: nowrap; }
+.v-frise span { display: block; height: 70px; border-radius: 12px; margin-bottom: 10px; transform-origin: bottom; }
+.v-frise b { display: block; font-size: 12.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.v-frise small { font-size: 11.5px; color: #A9BCE6; }
+.v-frise div:last-child span { box-shadow: 0 0 24px rgba(125, 211, 252, .55); }
+.v-decision { margin-top: 28px; background: rgba(255, 255, 255, .06); border: 1px solid rgba(169, 196, 255, .2); border-radius: 22px; padding: 20px; backdrop-filter: blur(6px); }
+.v-decision-titre { font-size: 13px; font-weight: 700; color: #7DD3FC; }
+.v-entrees { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.v-entrees span { font-size: 13px; padding: 6px 10px; border-radius: 10px; background: rgba(255, 255, 255, .08); color: #C6D4F5; }
+.v-entrees b { color: #fff; }
+.v-fleche { font-size: 22px; color: #7DD3FC; text-align: center; margin: 8px 0; animation: descendre 1.6s ease-in-out infinite; }
+@keyframes descendre { 50% { transform: translateY(4px); } }
+.v-sortie { display: flex; gap: 14px; align-items: flex-start; background: #fff; color: var(--ink); border-radius: 16px; padding: 14px; }
+.v-score { flex: none; width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center; font-weight: 850; font-size: 18px; color: var(--ink);
+  background: radial-gradient(closest-side, #fff 74%, transparent 75%), conic-gradient(var(--z3) 38%, var(--bg-2) 0); }
+.v-sortie b { font-size: 15.5px; } .v-sortie p { font-size: 13.5px; color: var(--ink-2); margin-top: 4px; line-height: 1.45; }
+@media (max-width: 960px) { .v-moteur { grid-template-columns: minmax(0, 1fr); gap: 40px; } }
+@media (max-width: 520px) { .v-regles { grid-template-columns: minmax(0, 1fr); } .v-frise b { font-size: 10.5px; } }
+
+/* ───── Séances en défilement ───── */
+.v-seances { padding-bottom: 72px; }
+.v-seances .v-intro { margin-bottom: 8px; }
+.v-defilement { overflow: hidden; padding: 28px 0 12px; mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
+.v-piste { display: flex; gap: 14px; width: max-content; animation: defile 70s linear infinite; }
+.v-defilement:hover .v-piste { animation-play-state: paused; }
+.v-seance { width: 248px; background: #fff; border-radius: 20px; padding: 16px; box-shadow: var(--ombre-carte); border: 1px solid rgba(29, 91, 255, .06); }
+.v-seance h3 { font-size: 16px; margin-top: 14px; }
+.v-seance p { font-size: 13px; color: var(--ink-2); margin-top: 4px; }
+@media (prefers-reduced-motion: reduce) { .v-defilement { overflow-x: auto; mask-image: none; } .v-piste { animation: none; } }
+
+/* ───── Montres ───── */
+.v-montres { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 72px; align-items: center; }
+.v-texte { font-size: 17.5px; line-height: 1.6; color: var(--ink-2); margin-top: 18px; max-width: 54ch; }
+.v-marques { list-style: none; margin: 30px 0 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.v-marques li { display: flex; gap: 12px; align-items: center; padding: 12px; border-radius: 16px; background: var(--bg); transition: transform .2s var(--doux), background .2s; }
+.v-marques li:hover { transform: translateY(-2px); background: var(--bleu-clair); }
+.v-marque-logo { flex: none; width: 38px; height: 38px; border-radius: 11px; display: grid; place-items: center; background: var(--marque); color: #fff; font-weight: 900; font-size: 17px; }
+.v-marque-logo svg { width: 18px; height: 18px; }
+.v-marques b { font-size: 14.5px; display: block; } .v-marques small { font-size: 12.5px; color: var(--ink-2); }
+.v-montre { justify-self: center; display: flex; flex-direction: column; align-items: center; }
+.v-bracelet { width: 132px; height: 110px; background: linear-gradient(90deg, #1A2340, #2B3760 50%, #1A2340); }
+.v-bracelet.haut { border-radius: 30px 30px 8px 8px; } .v-bracelet.bas { border-radius: 8px 8px 30px 30px; }
+.v-cadran { position: relative; width: 250px; height: 250px; margin: -14px 0; border-radius: 50%; background: radial-gradient(circle at 50% 35%, #142047, #050A1A 70%); color: #fff; z-index: 1;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; box-shadow: 0 0 0 10px #3A4670, 0 0 0 12px #222B48, 0 40px 70px -24px rgba(10, 26, 63, .6); }
+.v-cadran > small { font-size: 12px; color: #9EC5FF; }
+.v-etape-montre { font-size: 14px; font-weight: 750; margin-top: 4px; }
+.v-cadran b { font-size: 58px; font-weight: 850; line-height: 1; font-variant-numeric: tabular-nums; letter-spacing: -0.03em; margin: 4px 0; }
+.v-cible { font-size: 13px; font-weight: 800; padding: 4px 12px; border-radius: 99px; background: var(--z4); color: #1A0E04; }
+.v-suivant { margin-top: 10px; color: #7D89A6 !important; }
+.v-arc { position: absolute; inset: 8px; border-radius: 50%; border: 5px solid transparent; border-top-color: var(--cyan); border-right-color: var(--cyan); animation: tourner 6s linear infinite; opacity: .9; }
+@media (max-width: 960px) { .v-montres { grid-template-columns: minmax(0, 1fr); gap: 48px; } .v-montres > .v-montre { order: 2; } }
+@media (max-width: 520px) { .v-marques { grid-template-columns: minmax(0, 1fr); } }
+
+/* Dossards et bandeau aux couleurs alpines */
+.vitrine .dossard { border-radius: 18px; }
+.vitrine .dossard.vedette { border-color: var(--bleu); }
+.vitrine .bandeau-cta { background: radial-gradient(100% 140% at 100% 0%, #3D7BFF 0%, #1D4FE6 40%, #0A1A3F 100%); }
+
+/* Apparition au défilement */
+@supports (animation-timeline: view()) {
+  .v-intro, .v-moment, .v-regles div, .v-decision, .v-marques li, .dossard, .faq details, .bandeau-cta, .v-montre {
+    animation: reveler linear backwards; animation-timeline: view(); animation-range: entry 0% entry 55%;
+  }
+  .v-moment { animation-range: entry calc(var(--k) * 4%) entry calc(50% + var(--k) * 4%); }
+  .v-frise span { animation: pousser-frise linear both; animation-timeline: view(); animation-range: entry 10% entry 70%; }
+}

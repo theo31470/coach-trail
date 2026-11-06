@@ -1,0 +1,218 @@
+/* Coach Trail · thème v2 « appli de sport »
+   Plus épuré dans l'app (surfaces blanches, ombres douces, titres sobres),
+   animations courtes partout, et repli complet si l'utilisateur réduit les animations. */
+
+:root {
+  --bg: #F3F6FC;
+  --bg-2: #E7EDF8;
+  --line: #E1E8F4;
+  --radius: 18px;
+  --ombre-carte: 0 1px 2px rgba(14, 22, 40, .05), 0 6px 20px -10px rgba(14, 22, 40, .16);
+  --ombre-haute: 0 2px 4px rgba(14, 22, 40, .06), 0 16px 34px -14px rgba(14, 22, 40, .28);
+  --ressort: cubic-bezier(.3, 1.4, .5, 1);
+  --doux: cubic-bezier(.2, .7, .2, 1);
+}
+[data-theme='sombre'] { --ombre-carte: 0 0 0 1px var(--line); --ombre-haute: 0 0 0 1px var(--line-2), 0 16px 34px -14px rgba(0, 0, 0, .6); }
+@media (prefers-color-scheme: dark) {
+  [data-theme='systeme'] { --ombre-carte: 0 0 0 1px var(--line); --ombre-haute: 0 0 0 1px var(--line-2), 0 16px 34px -14px rgba(0, 0, 0, .6); }
+}
+
+/* ───── Éléments communs ───── */
+.btn { transition: transform .18s var(--ressort), box-shadow .2s, background-color .2s, filter .2s, border-color .2s; }
+.btn:hover:not(:disabled) { transform: translateY(-1px); }
+.btn:active:not(:disabled) { transform: translateY(1px) scale(.98); transition-duration: .06s; }
+.btn-primary:hover:not(:disabled) { box-shadow: inset 0 1px 0 rgba(255,255,255,.22), 0 10px 22px -8px rgba(29, 91, 255, .65); }
+.btn[aria-disabled='true'] { opacity: .4; pointer-events: none; }
+input, select, textarea { transition: border-color .2s, box-shadow .2s; }
+input:focus, select:focus, textarea:focus { border-color: var(--forest-2); box-shadow: 0 0 0 4px color-mix(in srgb, var(--forest-2) 16%, transparent); outline: none; }
+.pastille, .choix button { transition: transform .16s var(--ressort), background-color .2s, border-color .2s, color .2s; }
+.pastille:hover, .choix button:hover { transform: translateY(-1px); border-color: var(--forest-2); }
+.pastille[aria-pressed='true'], .choix button[aria-pressed='true'] { animation: choisi .32s var(--ressort); }
+@keyframes choisi { 40% { transform: scale(1.04); } }
+.interrupteur span::before { transition: transform .25s var(--ressort); }
+.badge { transition: background-color .2s; }
+.faq summary::after { transition: transform .25s var(--ressort); }
+.faq details[open] p { animation: deplier .3s var(--doux); }
+@keyframes deplier { from { opacity: 0; transform: translateY(-4px); } }
+
+/* Barres de progression qui se remplissent */
+.barre-prog > span { transform-origin: left; animation: remplir .9s .15s var(--doux) both; }
+@keyframes remplir { from { transform: scaleX(0); } }
+
+/* Graphiques : barres qui poussent, courbe qui se trace, anneau qui se dessine */
+.gr-barre rect { transform-box: fill-box; transform-origin: bottom; animation: pousser .7s calc(var(--i, 0) * 22ms + .1s) var(--doux) both; transition: opacity .2s, filter .2s; }
+.gr-barre:hover rect { filter: brightness(1.08) saturate(1.1); }
+@keyframes pousser { from { transform: scaleY(0); } }
+.gr-courbe { stroke-dasharray: 1; animation: tracer 1.3s .15s var(--doux) both; }
+@keyframes tracer { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+.gr-point { animation: apparaitre .3s calc(var(--i, 0) * 50ms + .6s) var(--ressort) both; transform-box: fill-box; transform-origin: center; }
+@keyframes apparaitre { from { opacity: 0; transform: scale(.2); } }
+.gr-anneau { animation: anneau 1.2s .2s var(--doux) both; }
+@keyframes anneau { from { stroke-dasharray: 0 var(--c); } }
+
+/* Entrée de page à chaque navigation */
+.entree-page { animation: entree .38s var(--doux) backwards; }
+@keyframes entree { from { opacity: 0; } }
+
+/* Squelettes de chargement */
+.squelette { animation: entree .2s both; }
+.sq { background: linear-gradient(90deg, var(--bg-2) 0%, color-mix(in srgb, var(--bg-2) 45%, var(--surface)) 50%, var(--bg-2) 100%);
+  background-size: 200% 100%; border-radius: 12px; animation: reflet 1.3s linear infinite; }
+.sq-titre { height: 34px; width: 46%; border-radius: 10px; }
+.sq-ligne { height: 14px; margin-top: 12px; border-radius: 7px; }
+.sq-bloc { border-radius: var(--radius); }
+.sq-semaine { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 8px; }
+.sq-semaine .sq { height: 90px; border-radius: 16px; animation-delay: calc(var(--i) * 60ms); }
+@keyframes reflet { from { background-position: 100% 0; } to { background-position: -100% 0; } }
+
+/* ───── Application : coquille plus épurée ───── */
+.coquille .contenu { font-size: 15px; }
+.coquille h1, .coquille h2 { font-stretch: 100%; letter-spacing: -0.025em; }
+.coquille .titre-page { margin-bottom: 22px; }
+.coquille .titre-page h1 { font-size: clamp(26px, 3vw, 32px); font-weight: 780; }
+.coquille .titre-page p { font-size: 14.5px; }
+.coquille .montagne-titre h2, .coquille .seance-jour h2 { font-stretch: 112%; }
+
+.coquille .carte, .coquille .kpi { border-color: transparent; box-shadow: var(--ombre-carte); }
+.coquille .carte-titre h3 { font-size: 15.5px; font-weight: 720; }
+.coquille .kpi { transition: transform .2s var(--doux), box-shadow .2s; }
+.coquille .kpi:hover { transform: translateY(-2px); box-shadow: var(--ombre-haute); }
+.coquille a.carte { text-decoration: none; color: inherit; transition: transform .2s var(--doux), box-shadow .2s; }
+.coquille a.carte:hover { transform: translateY(-2px); box-shadow: var(--ombre-haute); }
+
+/* Les blocs d'une page arrivent l'un après l'autre */
+.coquille .entree-page > * > * { animation: monter .45s var(--doux) backwards; }
+.coquille .entree-page > * > :nth-child(2) { animation-delay: .05s; }
+.coquille .entree-page > * > :nth-child(3) { animation-delay: .1s; }
+.coquille .entree-page > * > :nth-child(4) { animation-delay: .15s; }
+.coquille .entree-page > * > :nth-child(n+5) { animation-delay: .2s; }
+@keyframes monter { from { opacity: 0; transform: translateY(10px); } }
+
+/* Barre latérale : indicateur actif qui glisse en place */
+.barre-laterale { border-right-color: var(--line); }
+.nav-app a { position: relative; transition: background-color .18s, color .18s; }
+.nav-app a svg { transition: transform .25s var(--ressort); }
+.nav-app a:hover svg { transform: translateX(2px); }
+.nav-app a[aria-current='page'] { background: color-mix(in srgb, var(--forest-2) 11%, transparent); color: var(--forest-2); }
+.nav-app a[aria-current='page']::before { content: ''; position: absolute; left: -14px; top: 8px; bottom: 8px; width: 4px; border-radius: 0 4px 4px 0;
+  background: var(--aube); animation: indicateur .35s var(--ressort) both; transform-origin: center; }
+@keyframes indicateur { from { transform: scaleY(0); } }
+.admin .nav-app a[aria-current='page'] { background: rgba(53, 90, 176, .22); color: #fff; }
+
+/* Onglets du bas (mobile) : l'icône active saute légèrement */
+@media (max-width: 900px) {
+  .onglets-bas a { transition: color .2s, background-color .2s; }
+  .onglets-bas a[aria-current='page'] { background: color-mix(in srgb, var(--forest-2) 13%, transparent); }
+  .onglets-bas a[aria-current='page'] svg { animation: saut .45s var(--ressort); }
+}
+@keyframes saut { 40% { transform: translateY(-4px) scale(1.08); } }
+
+/* Séance du jour */
+.seance-jour { box-shadow: 0 18px 40px -18px rgba(14, 22, 40, .55); }
+.seance-jour svg.deco { animation: derive 18s ease-in-out infinite alternate; }
+@keyframes derive { to { transform: translateX(-24px); } }
+
+/* Semaine : jours en cartes qui arrivent en décalé */
+.jour { border-color: transparent; box-shadow: var(--ombre-carte); transition: transform .2s var(--doux), box-shadow .2s;
+  animation: monter .4s calc(var(--k, 0) * 45ms + .1s) var(--doux) backwards; }
+.semaine > :nth-child(1) { --k: 0; } .semaine > :nth-child(2) { --k: 1; } .semaine > :nth-child(3) { --k: 2; } .semaine > :nth-child(4) { --k: 3; }
+.semaine > :nth-child(5) { --k: 4; } .semaine > :nth-child(6) { --k: 5; } .semaine > :nth-child(7) { --k: 6; }
+a.jour:hover { transform: translateY(-3px); box-shadow: var(--ombre-haute); }
+.jour.aujourdhui { box-shadow: 0 0 0 2px var(--aube), var(--ombre-carte); border-color: transparent; }
+
+/* Liste des séances */
+.liste-seances .seance { transition: background-color .18s, transform .18s var(--doux); }
+.liste-seances a.seance:hover { transform: translateX(3px); }
+.zone-tag { transition: transform .2s var(--ressort); }
+.liste-seances a.seance:hover .zone-tag { transform: scale(1.08); }
+.timeline-phases a { transition: filter .2s, transform .2s var(--ressort); }
+.timeline-phases a:hover { filter: brightness(1.08); transform: scaleY(1.08); }
+
+/* Sélecteur Semaine / Calendrier */
+.bascule { display: inline-flex; padding: 3px; gap: 2px; border-radius: 12px; background: var(--bg-2); }
+.bascule a { padding: 6px 14px; border-radius: 9px; font-size: 14px; font-weight: 650; color: var(--ink-2); text-decoration: none; transition: background-color .2s, color .2s, box-shadow .2s; }
+.bascule a:hover { color: var(--ink); }
+.bascule a[aria-current='page'] { background: var(--surface); color: var(--ink); box-shadow: 0 1px 3px rgba(14, 22, 40, .14); }
+
+/* Calendrier mensuel */
+.calendrier { padding: 18px; }
+.cal-entete { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 14px; flex-wrap: wrap; }
+.cal-entete h3 { font-size: 20px; font-weight: 780; letter-spacing: -0.02em; }
+.cal-grille { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+.cal-jour-nom { background: var(--surface-2); font-size: 12.5px; font-weight: 650; color: var(--ink-3); text-align: center; padding: 8px 0; }
+.cal-case { background: var(--surface); min-height: 108px; padding: 6px; display: flex; flex-direction: column; gap: 4px; min-width: 0;
+  animation: apparaitre-case .35s calc(var(--k) * 10ms) var(--doux) both; }
+@keyframes apparaitre-case { from { opacity: 0; } }
+.cal-case.hors { background: var(--surface-2); }
+.cal-case.hors .cal-num, .cal-case.hors-plan .cal-num { color: var(--ink-3); opacity: .6; }
+.cal-num { font-size: 13px; font-weight: 700; width: 26px; height: 26px; display: grid; place-items: center; border-radius: 50%; }
+.cal-case.auj .cal-num { background: var(--aube); color: #fff; opacity: 1; animation: pulse-auj 2.4s ease-in-out infinite; }
+@keyframes pulse-auj { 50% { box-shadow: 0 0 0 5px color-mix(in srgb, var(--aube) 22%, transparent); } }
+.cal-seance { position: relative; display: block; text-decoration: none; color: var(--ink); border-left: 3px solid var(--z); border-radius: 7px; padding: 4px 7px;
+  background: color-mix(in srgb, var(--z) 15%, var(--surface)); font-size: 12px; line-height: 1.3; transition: transform .16s var(--doux), box-shadow .16s; }
+.cal-seance:hover { transform: translateY(-1px); box-shadow: 0 4px 10px -4px rgba(14, 22, 40, .3); }
+.cal-seance b { display: block; font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding-right: 12px; }
+.cal-seance span { color: var(--ink-2); }
+.cal-seance i { position: absolute; top: 3px; right: 5px; font-style: normal; font-weight: 800; color: var(--ok); }
+.cal-seance.fait { background: color-mix(in srgb, var(--z) 32%, var(--surface)); }
+.cal-seance.manque { border-left-style: dashed; background: var(--surface-2); color: var(--ink-3); }
+.cal-seance.manque b { text-decoration: line-through; text-decoration-color: var(--danger); }
+.cal-seance.jour-j { background: var(--aube); border-left-color: var(--foret); color: #fff; }
+.cal-seance.jour-j b { font-stretch: 112%; }
+.cal-renfo { align-self: flex-start; font-size: 11px; font-weight: 650; color: var(--info); background: var(--info-soft); border-radius: 99px; padding: 1px 7px; }
+.cal-legende { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px; }
+.cal-legende span { display: inline-flex; align-items: center; gap: 6px; }
+.cal-legende i { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
+.cal-legende .l-fait { background: var(--ok); }
+.cal-legende .l-manque { border: 1.5px dashed var(--ink-3); }
+@media (max-width: 640px) {
+  .calendrier { padding: 12px; }
+  .cal-case { min-height: 68px; padding: 4px 3px; }
+  .cal-num { width: 22px; height: 22px; font-size: 12px; }
+  .cal-seance { padding: 0; height: 7px; border: 0; border-radius: 4px; background: color-mix(in srgb, var(--z) 45%, var(--surface)); }
+  .cal-seance b, .cal-seance span, .cal-seance i { display: none; }
+  .cal-seance.fait { background: var(--z); }
+  .cal-seance.manque { background: repeating-linear-gradient(90deg, var(--line-2) 0 3px, transparent 3px 5px); }
+  .cal-seance.jour-j { height: 16px; display: grid; place-items: center; }
+  .cal-seance.jour-j b { display: block; font-size: 10px; padding: 0; }
+  .cal-renfo { display: none; }
+}
+
+/* ───── Site vitrine ───── */
+.hero h1 { animation: monter .8s .1s var(--doux) both; }
+.hero .lead { animation: monter .8s .25s var(--doux) both; }
+.hero .cta { animation: monter .8s .4s var(--doux) both; }
+.paysage .soleil { animation: lever 1.6s .1s var(--doux) both; }
+@keyframes lever { from { transform: translateY(70px); opacity: .3; } }
+.paysage .couche { animation: couche 1.2s calc(var(--i) * 90ms + .15s) var(--doux) both; }
+@keyframes couche { from { transform: translateY(calc(30px + var(--i) * 8px)); opacity: 0; } }
+.paysage .trace-course { animation: marche 1.4s linear infinite; }
+@keyframes marche { to { stroke-dashoffset: -34; } }
+.paysage .repere { transform-box: fill-box; transform-origin: center bottom; animation: repere .5s calc(var(--i) * 120ms + 1s) var(--ressort) both; }
+@keyframes repere { from { opacity: 0; transform: translateY(10px) scale(.8); } }
+.entete-site { transition: background-color .3s; }
+.nav-site a { position: relative; transition: color .2s; }
+.nav-site a::after { content: ''; position: absolute; left: 0; right: 0; bottom: -6px; height: 2px; border-radius: 2px; background: var(--aube); transform: scaleX(0); transition: transform .25s var(--doux); }
+.nav-site a:hover::after { transform: scaleX(1); }
+.dossard { transition: transform .3s var(--ressort), box-shadow .3s; }
+.dossard:hover { transform: translateY(-4px) rotate(-.6deg); box-shadow: var(--ombre-haute); }
+.frise span { transition: filter .2s, transform .2s var(--ressort); transform-origin: bottom; }
+.frise span:hover { filter: brightness(1.1); transform: scaleY(1.06); }
+.auth .carte { animation: monter .5s var(--doux) backwards; }
+
+/* Apparition au défilement, là où le navigateur la gère nativement */
+@supports (animation-timeline: view()) {
+  .section .intro, .etape, .atouts > li, .frise, .frise-legende > div, .chiffres > div, .dossard, .faq details, .bandeau-cta {
+    animation: reveler linear backwards; animation-timeline: view(); animation-range: entry 0% entry 55%;
+  }
+  .etape:nth-child(2), .dossard:nth-child(2), .chiffres > div:nth-child(2) { animation-range: entry 8% entry 63%; }
+  .etape:nth-child(3), .dossard:nth-child(3), .chiffres > div:nth-child(3) { animation-range: entry 16% entry 71%; }
+  .frise span { animation: pousser-frise linear both; animation-timeline: view(); animation-range: entry 10% entry 70%; }
+}
+@keyframes reveler { from { opacity: 0; transform: translateY(28px); } }
+@keyframes pousser-frise { from { transform: scaleY(.15); opacity: .4; } }
+
+/* Respect des réglages d'accessibilité */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0s !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+}

@@ -1,0 +1,113 @@
+/* « La montée » — onboarding immersif. --p : progression de 0 (nuit, départ) à 1 (aube, sommet). */
+.montee { position: fixed; inset: 0; z-index: 60; overflow-y: auto; color: #fff; font-family: var(--font); color-scheme: dark; }
+
+.montee-ciel { position: fixed; inset: 0; pointer-events: none;
+  background: linear-gradient(180deg, #030813 0%, #081229 14%, #132140 28%, #313F61 42%, #55617D 56%, #6988D0 70%, #739CFB 84%, #A8DBFF 100%);
+  background-size: 100% 320%; background-position: 50% calc(var(--p) * 72%);
+  transition: background-position 1.4s cubic-bezier(.3, .7, .2, 1); }
+.montee-ciel .etoiles { position: absolute; inset: 0 0 45% 0; opacity: calc(1 - var(--p) * 1.7); transition: opacity 1.4s; }
+.montee-ciel .etoiles::before { content: ''; position: absolute; inset: 0; animation: scintille 3.5s ease-in-out infinite alternate;
+  background-image:
+    radial-gradient(1.6px 1.6px at 8% 22%, #fff 50%, transparent 51%), radial-gradient(1.2px 1.2px at 17% 8%, #fff 50%, transparent 51%),
+    radial-gradient(1.4px 1.4px at 26% 30%, #fff 50%, transparent 51%), radial-gradient(1px 1px at 33% 14%, #fff 50%, transparent 51%),
+    radial-gradient(1.8px 1.8px at 44% 6%, #fff 50%, transparent 51%), radial-gradient(1.2px 1.2px at 52% 26%, #fff 50%, transparent 51%),
+    radial-gradient(1px 1px at 61% 12%, #fff 50%, transparent 51%), radial-gradient(1.5px 1.5px at 69% 34%, #fff 50%, transparent 51%),
+    radial-gradient(1.2px 1.2px at 77% 9%, #fff 50%, transparent 51%), radial-gradient(1.7px 1.7px at 86% 24%, #fff 50%, transparent 51%),
+    radial-gradient(1px 1px at 93% 5%, #fff 50%, transparent 51%), radial-gradient(1.3px 1.3px at 4% 44%, #fff 50%, transparent 51%),
+    radial-gradient(1.1px 1.1px at 39% 46%, #fff 50%, transparent 51%), radial-gradient(1.4px 1.4px at 81% 48%, #fff 50%, transparent 51%); }
+@keyframes scintille { from { opacity: .55; } to { opacity: 1; } }
+.montee-ciel .soleil { position: absolute; right: 13%; width: 150px; height: 150px; border-radius: 50%;
+  background: radial-gradient(circle, #D6EEFF 0 30%, rgba(200, 225, 255, .55) 31%, rgba(200, 225, 255, 0) 70%);
+  bottom: calc(12% + var(--p) * 26%); opacity: calc(var(--p) * 1.5 - .15);
+  transition: bottom 1.4s cubic-bezier(.3, .7, .2, 1), opacity 1.4s; }
+
+.montee-haut { position: relative; z-index: 2; display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 18px 22px; }
+.montee-marque { display: inline-flex; align-items: center; gap: 8px; font-weight: 800; font-stretch: 118%; font-size: 17px; }
+.montee-compte { font-size: 13.5px; font-weight: 600; color: rgba(255, 255, 255, .85); background: rgba(255, 255, 255, .1); padding: 6px 12px; border-radius: 99px; }
+
+.montee-scene { position: relative; z-index: 2; min-height: calc(100dvh - 64px); display: flex; flex-direction: column; align-items: center; padding: 3vh 18px 250px; }
+.montee-carte { width: min(620px, 100%); background: rgba(6, 10, 19, .55); backdrop-filter: blur(18px) saturate(1.2); -webkit-backdrop-filter: blur(18px) saturate(1.2);
+  border: 1px solid rgba(255, 255, 255, .12); border-radius: 28px; padding: 30px; box-shadow: 0 30px 60px -20px rgba(0, 0, 0, .5);
+  animation: carte-entre .55s cubic-bezier(.2, .8, .2, 1) both; }
+@keyframes carte-entre { from { opacity: 0; transform: translateY(18px) scale(.985); filter: blur(4px); } }
+.montee-carte h1 { font-size: clamp(28px, 4.6vw, 42px); font-stretch: 118%; line-height: 1.05; letter-spacing: -0.02em; text-wrap: balance; margin-bottom: 22px; }
+.montee-sur { color: #9EC5FF; font-weight: 650; margin-bottom: 10px; }
+.montee-texte { color: #D2DBE1; font-size: 16.5px; margin: -8px 0 20px; }
+.montee-texte.petit { font-size: 13.5px; margin: 14px 0 0; color: #AFB5C2; }
+.montee-champ { display: flex; flex-direction: column; gap: 8px; font-weight: 600; font-size: 14.5px; color: #D2DBE1; margin-top: 14px; }
+.montee-champ input { background: rgba(255, 255, 255, .08); border: 1px solid rgba(255, 255, 255, .22); color: #fff; border-radius: 14px; padding: 14px 16px; font-size: 17px; }
+.montee-champ input::placeholder { color: rgba(255, 255, 255, .45); }
+.montee-go { margin-top: 22px; width: 100%; }
+
+.tuiles { display: grid; gap: 10px; }
+.tuiles-serrees { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.tuile { font: inherit; text-align: left; cursor: pointer; color: #fff; background: rgba(255, 255, 255, .07); border: 1.5px solid rgba(255, 255, 255, .14);
+  border-radius: 18px; padding: 16px 18px; display: flex; flex-direction: column; gap: 2px;
+  transition: transform .15s, background .2s, border-color .2s;
+  animation: tuile-entre .45s calc(var(--n) * 70ms + 140ms) cubic-bezier(.2, .8, .2, 1) both; }
+.tuile b { font-size: 17px; }
+.tuile span { font-size: 14px; color: #C2C7D4; }
+.tuile:hover { background: rgba(255, 255, 255, .12); transform: translateY(-1px); }
+.tuile[aria-pressed='true'] { border-color: var(--aube); background: rgba(29, 91, 255, .24); transform: scale(.98); }
+@keyframes tuile-entre { from { opacity: 0; transform: translateY(12px); } }
+
+.jours-montee { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 8px; }
+.jour-montee { aspect-ratio: 1; min-height: 44px; border-radius: 16px; font: inherit; font-weight: 700; font-size: 15px; color: #fff; cursor: pointer;
+  background: rgba(255, 255, 255, .07); border: 1.5px solid rgba(255, 255, 255, .16); transition: background .2s, border-color .2s, transform .15s;
+  animation: tuile-entre .45s calc(var(--n) * 50ms + 120ms) cubic-bezier(.2, .8, .2, 1) both; }
+.jour-montee[aria-pressed='true'] { background: var(--aube); border-color: var(--aube); box-shadow: 0 6px 18px -6px rgba(29, 91, 255, .7); }
+.jour-montee:active { transform: scale(.94); }
+
+.recap { list-style: none; padding: 0; margin: 0 0 16px; display: grid; gap: 8px; }
+.recap li { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 12px 14px; background: rgba(255, 255, 255, .06); border-radius: 14px; font-size: 15px;
+  animation: tuile-entre .45s both; }
+.recap li:nth-child(2) { animation-delay: .07s; } .recap li:nth-child(3) { animation-delay: .14s; } .recap li:nth-child(4) { animation-delay: .21s; }
+.recap span { color: #AFB5C2; }
+.recap b { text-align: right; }
+.accord { display: flex; gap: 12px; align-items: flex-start; font-size: 14px; color: #D2DBE1; margin-top: 12px; cursor: pointer; }
+.accord input { width: 20px; height: 20px; accent-color: var(--aube); flex: none; margin-top: 2px; }
+.montee-erreur { margin-top: 14px; background: rgba(229, 72, 77, .18); border: 1px solid rgba(229, 72, 77, .45); color: #FFD3D5; padding: 10px 14px; border-radius: 12px; font-size: 14px; }
+.montee-retour { margin-top: 14px; background: none; border: 0; color: rgba(255, 255, 255, .8); font: inherit; font-weight: 600; cursor: pointer; text-decoration: underline; text-underline-offset: 4px; }
+
+.montee-final { text-align: center; }
+.montee-final p { color: #D2DBE1; }
+.drapeau { width: 68px; height: 68px; transform-origin: 30% 100%; animation: planter .8s .3s cubic-bezier(.3, 1.6, .5, 1) both; }
+@keyframes planter { from { transform: translateY(-36px) scale(.6) rotate(-12deg); opacity: 0; } }
+.trace-chargement { height: 6px; border-radius: 99px; background: rgba(255, 255, 255, .12); overflow: hidden; margin: 22px auto 0; max-width: 320px; }
+.trace-chargement span { display: block; height: 100%; width: 40%; background: linear-gradient(90deg, transparent, var(--aube), transparent); animation: balaye 1.1s ease-in-out infinite; }
+@keyframes balaye { from { transform: translateX(-100%); } to { transform: translateX(250%); } }
+
+/* Le sol : crêtes, sentier, balises, coureur à la frontale */
+.montee-sol { position: fixed; left: 0; right: 0; bottom: 0; height: min(34vh, 270px); z-index: 1; pointer-events: none; }
+.montee-sol svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.crete-loin { fill: #24304D; opacity: .7; }
+.crete-milieu { fill: #161E32; }
+.crete-proche { fill: #0A1A3F; }
+.sentier { fill: none; stroke: rgba(255, 255, 255, .4); stroke-width: 2; stroke-dasharray: 5 5; vector-effect: non-scaling-stroke; }
+.revele { transform-origin: 0 0; transition: transform 1.2s cubic-bezier(.3, .7, .2, 1); }
+.sentier-fait { fill: none; stroke: var(--aube); stroke-width: 3.5; stroke-linejoin: round; stroke-linecap: round; vector-effect: non-scaling-stroke; filter: drop-shadow(0 0 6px rgba(200, 225, 255, .6)); }
+.balise-montee { position: absolute; width: 16px; height: 11px; transform: translate(-50%, 50%); border-radius: 2px;
+  background: linear-gradient(#fff 0 42%, transparent 42% 58%, #E03C31 58%); box-shadow: 0 0 0 3px #0A1A3F; opacity: .4;
+  transition: opacity .5s, transform .5s cubic-bezier(.3, 1.6, .5, 1); }
+.balise-montee.passee { opacity: 1; transform: translate(-50%, 50%) scale(1.2); }
+.coureur { position: absolute; width: 18px; height: 18px; transform: translate(-50%, 50%);
+  transition: left 1.2s cubic-bezier(.3, .7, .2, 1), bottom 1.2s cubic-bezier(.3, .7, .2, 1); }
+.coureur i { position: absolute; inset: 0; border-radius: 50%; background: var(--aube); box-shadow: 0 0 0 4px #fff, 0 0 22px 6px rgba(200, 225, 255, .8); animation: frontale 1.6s ease-in-out infinite; }
+.coureur::before { content: ''; position: absolute; inset: -12px; border-radius: 50%; border: 2px solid rgba(200, 225, 255, .7); animation: onde 1.8s ease-out infinite; }
+.coureur.au-sommet i { animation: sommet .6s cubic-bezier(.3, 1.6, .5, 1) 1.1s both; }
+@keyframes frontale { 50% { box-shadow: 0 0 0 4px #fff, 0 0 36px 12px rgba(200, 225, 255, .95); } }
+@keyframes onde { from { transform: scale(.5); opacity: 1; } to { transform: scale(1.7); opacity: 0; } }
+@keyframes sommet { 50% { transform: scale(1.6); } }
+
+@media (max-width: 640px) {
+  .montee-carte { padding: 22px; border-radius: 24px; }
+  .montee-scene { padding-bottom: 210px; }
+  .montee-sol { height: 26vh; }
+  .montee-ciel .soleil { right: 4%; width: 96px; height: 96px; }
+  .jours-montee { gap: 5px; }
+  .jour-montee { border-radius: 12px; font-size: 13.5px; }
+  .tuile { padding: 14px 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .montee *, .montee *::before, .montee *::after { animation: none !important; transition: none !important; }
+}

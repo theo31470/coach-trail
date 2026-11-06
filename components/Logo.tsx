@@ -1,0 +1,29 @@
+import Link from 'next/link';
+
+/** Marque Coach Trail : un sommet et son sentier sur fond bleu alpin. */
+export function Marque({ taille = 30 }: { taille?: number }) {
+  return (
+    <svg width={taille} height={taille} viewBox="0 0 32 32" aria-hidden="true">
+      <defs>
+        <linearGradient id="marque-fond" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stopColor="#4C86FF" />
+          <stop offset="1" stopColor="#0E3BB8" />
+        </linearGradient>
+      </defs>
+      <rect width="32" height="32" rx="10" fill="url(#marque-fond)" />
+      <path d="M14 26L22 13.5 30 26z" fill="#9EBEFF"/>
+      <path d="M2 26L13 8l11 18z" fill="#fff"/>
+      <path d="M8.5 25.2c3-1 4.6-2.4 3.2-3.6-1.4-1.2 1.2-2.6 2.6-3.6 1.2-.9.3-2-.5-3.2" fill="none" stroke="#1D5BFF" strokeWidth="1.25" strokeLinecap="round" strokeDasharray="1.7 1.5"/>
+      <circle cx="13" cy="10.6" r="1.25" fill="#1D5BFF"/>
+    </svg>
+  );
+}
+
+export default function Logo({ href = '/' }: { href?: string }) {
+  return (
+    <Link href={href} className="logo">
+      <Marque />
+      Coach Trail
+    </Link>
+  );
+}
