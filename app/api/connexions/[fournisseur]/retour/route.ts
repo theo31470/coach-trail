@@ -18,10 +18,10 @@ export async function GET(requete: Request, { params }: { params: Promise<{ four
   if (!user) return NextResponse.redirect(`${url.origin}/connexion`);
   try {
     const jetons = await echangerCode(f, url.searchParams.get('code')!, `${url.origin}/api/connexions/${f.id}/retour`, memo.verificateur);
-    await apresConnexion(f, jetons, user.id);
+    const compte = await apresConnexion(f, jetons, user.id);
     const { error } = await supabase.from('connexions').upsert({
       user_id: user.id, fournisseur: f.id, access_token: jetons.access_token, refresh_token: jetons.refresh_token ?? null,
-      expire_le: jetons.expire_le ?? null, compte_externe: jetons.compte_externe ?? null,
+      expire_le: jetons.expire_le ?? null, compte_externe: compte ?? jetons.compte_externe ?? null,
     }, { onConflict: 'user_id,fournisseur' });
     if (error) throw error;
   } catch {

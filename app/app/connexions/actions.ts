@@ -2,7 +2,7 @@
 
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
-import { FOURNISSEURS, activitesRecentes, envoyerVersGarmin, estActif, rafraichir } from '@/lib/connexions';
+import { FOURNISSEURS, activitesRecentes, envoyerVersGarmin, estActif, rafraichir, revoquerGarmin } from '@/lib/connexions';
 import { ajouterJoursIso } from '@/lib/format';
 import { seanceAdaptee, trouverSeance } from '@/lib/plan-utils';
 import { detaillerSeance } from '@/lib/seance-detail';
@@ -73,6 +73,11 @@ export async function synchroniser(): Promise<{ erreur?: string; importees?: num
 /** Déconnecte un service : ses accès sont effacés, et ses sorties importées aussi si le membre le demande. */
 export async function deconnecter(fournisseur: Fournisseur, supprimerSorties = false) {
   const { supabase, userId } = await session();
+  if (fournisseur === 'garmin') {
+    const { data: c } = await supabase.from('connexions').select('fournisseur, access_token, refresh_token, expire_le').eq('user_id', userId).eq('fournisseur', 'garmin').maybeSingle<LigneConnexion>();
+    if (c) await revoquerGarmin(await jetonValide(supabase, userId, c).catch(() => c.access_token));
+    if (supprimerSorties) await supabase.from('mesures_sante').delete().eq('user_id', userId).eq('source', 'garmin');
+  }
   await supabase.from('connexions').delete().eq('user_id', userId).eq('fournisseur', fournisseur);
   if (supprimerSorties) await supabase.from('seances_realisees').delete().eq('user_id', userId).eq('source', fournisseur);
   revalidatePath('/app', 'layout');

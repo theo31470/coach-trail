@@ -4,6 +4,7 @@
  *  - retour après séance → comparaison prévu / réalisé → conseils et récupération.
  */
 import type { Seance, TypeSeance } from './moteur-entrainement';
+import type { LectureMontre } from './sante';
 
 // ─────────────────────────── Bilan du matin ───────────────────────────
 
@@ -24,6 +25,7 @@ export interface Adaptation {
   titre: string;                 // phrase courte affichée en tête
   raisons: string[];             // pourquoi le moteur a décidé ça
   conseils: string[];
+  montre?: { points: number; indicateurs: LectureMontre['indicateurs'] } | null; // mesures de la nuit prises en compte
 }
 
 const QUALITE: TypeSeance[] = ['fartlek', 'cotes_courtes', 'cotes_longues', 'vma', 'seuil', 'allure_specifique', 'rappel_allure'];
@@ -46,10 +48,12 @@ export function libelleForme(score: number) {
  * Adapte la séance du jour au bilan du matin.
  * `acwr` (charge aiguë / chronique) affine la décision quand il est connu.
  */
-export function adapterSeanceDuJour(seance: Seance | null, b: BilanMatin, acwr: number | null = null): Adaptation {
-  const score = scoreForme(b);
+export function adapterSeanceDuJour(seance: Seance | null, b: BilanMatin, acwr: number | null = null, montre: LectureMontre | null = null): Adaptation {
+  // Ressenti du coureur, corrigé par ce que la montre a mesuré pendant la nuit (FC au repos, VFC, Body Battery)
+  const score = Math.max(0, Math.min(100, scoreForme(b) + (montre?.points ?? 0)));
   const raisons: string[] = [];
   const conseils: string[] = [];
+  if (montre) raisons.push(...montre.signaux);
 
   if (b.sommeil <= 2) raisons.push('Nuit difficile : la récupération n’est pas complète.');
   if (b.energie <= 2) raisons.push('Énergie basse ce matin.');

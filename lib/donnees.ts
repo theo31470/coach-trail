@@ -1,5 +1,7 @@
 import { redirect } from 'next/navigation';
 import { cache } from 'react';
+import { ajouterJoursIso } from './format';
+import { lireMontre, type MesureSanteDb } from './sante';
 import { supabaseServeur } from './supabase/server';
 import type { BilanMatinDb, ConnexionDb, ObjectifDb, PlanDb, Profil, SeanceRealiseeDb } from './types';
 
@@ -72,4 +74,17 @@ export async function urlAgenda(jeton: string | null | undefined) {
   const h = await headers();
   const hote = h.get('x-forwarded-host') ?? h.get('host');
   return hote ? `webcal://${hote}/api/calendrier/${jeton}.ics` : null;
+}
+
+/** Mesures santé des montres (sommeil, FC au repos, VFC…), les plus récentes d'abord. */
+export async function mesuresSante(supabase: Client, userId: string, depuis: string) {
+  const { data, error } = await supabase.from('mesures_sante').select('*').eq('user_id', userId).gte('date', depuis)
+    .order('date', { ascending: false }).returns<MesureSanteDb[]>();
+  return error ? [] : data ?? [];
+}
+
+/** Lecture de la nuit écoulée par le moteur, comparée aux 28 jours précédents. */
+export async function lectureDuJour(supabase: Client, userId: string, date: string) {
+  const mesures = await mesuresSante(supabase, userId, ajouterJoursIso(date, -29));
+  return lireMontre(mesures.find((m) => m.date === date) ?? null, mesures.filter((m) => m.date < date));
 }

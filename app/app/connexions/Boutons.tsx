@@ -28,7 +28,7 @@ export function BoutonDeconnecter({ fournisseur }: { fournisseur: Fournisseur })
   return (
     <button className="btn btn-ghost btn-s" disabled={enCours} onClick={() => {
       if (!confirm('Déconnecter ce compte ? Monotrace n’y aura plus accès.')) return;
-      const effacer = confirm('Supprimer aussi les sorties importées depuis ce service ?\n\nOK : elles sont effacées de ton journal.\nAnnuler : elles restent dans ton journal.');
+      const effacer = confirm('Supprimer aussi les sorties et mesures importées depuis ce service ?\n\nOK : elles sont effacées de ton journal.\nAnnuler : elles restent dans ton journal.');
       demarrer(async () => { await deconnecter(fournisseur, effacer); router.refresh(); });
     }}>Déconnecter</button>
   );

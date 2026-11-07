@@ -17,7 +17,9 @@ const QUESTIONS = [
 type Reponses = { sommeil: number; energie: number; jambes: number; douleur: number; zone: string };
 
 /** Bilan du matin : 4 questions en 10 secondes, puis l'adaptation de la séance par le moteur. */
-export default function BilanMatin({ fait, ouvrir = false }: { fait: BilanMatinDb | null; ouvrir?: boolean }) {
+export default function BilanMatin({ fait, ouvrir = false, sommeilMontre = null }: {
+  fait: BilanMatinDb | null; ouvrir?: boolean; sommeilMontre?: { note: number; texte: string } | null;
+}) {
   const router = useRouter();
   const [enCours, demarrer] = useTransition();
   const [etape, setEtape] = useState(ouvrir ? 0 : -1);
@@ -74,9 +76,14 @@ export default function BilanMatin({ fait, ouvrir = false }: { fait: BilanMatinD
         <div key={etape} className="bilan-question">
           <div className="bilan-icone">{QUESTIONS[etape].icone}</div>
           <h4>{QUESTIONS[etape].question}</h4>
+          {etape === 0 && sommeilMontre && (
+            <p className="small muted bilan-montre">Ta montre a mesuré {sommeilMontre.texte}. On te propose « {QUESTIONS[0].choix[sommeilMontre.note - 1]} », ajuste selon ton ressenti.</p>
+          )}
           <div className="bilan-echelle" role="radiogroup" aria-label={QUESTIONS[etape].question}>
             {QUESTIONS[etape].choix.map((c, k) => (
-              <button key={c} type="button" role="radio" aria-checked={r[QUESTIONS[etape].cle] === k + 1} style={{ '--n': k } as React.CSSProperties}
+              <button key={c} type="button" role="radio" aria-checked={r[QUESTIONS[etape].cle] === k + 1}
+                className={etape === 0 && !r.sommeil && sommeilMontre?.note === k + 1 ? 'suggere' : undefined}
+                style={{ '--n': k } as React.CSSProperties}
                 onClick={() => { setR((x) => ({ ...x, [QUESTIONS[etape].cle]: k + 1 })); setTimeout(() => setEtape((e) => e + 1), 180); }}>
                 <span className="niveau" data-n={k + 1} />{c}
               </button>

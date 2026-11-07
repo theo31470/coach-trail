@@ -36,14 +36,16 @@ export default function Confidentialite() {
         <li><strong>Ton profil sportif</strong> : niveau, volume d’entraînement habituel, jours disponibles, chrono de référence, course objectif ; et si tu les renseignes, fréquence cardiaque maximale et de repos, poids, taille, date de naissance.</li>
         <li><strong>Ton bilan du matin</strong> : qualité du sommeil, énergie, état des jambes, douleur éventuelle et sa zone.</li>
         <li><strong>Tes séances réalisées</strong> : durée, distance, dénivelé, ressenti, douleur, commentaires.</li>
-        <li><strong>Les données de tes montres et applis connectées</strong>, si tu en relies une (détails plus bas).</li>
+        <li><strong>Les données de tes montres et applis connectées</strong>, si tu en relies une : tes sorties, et pour les montres qui les mesurent, ton sommeil, ta fréquence cardiaque au repos, ta variabilité cardiaque, ton niveau de stress et ta Body Battery (détails plus bas).</li>
         <li><strong>Tes préférences</strong> : unités, thème, réglages des notifications et de l’e-mail du matin ; et, si tu actives les notifications, l’identifiant d’abonnement fourni par ton navigateur.</li>
       </ul>
 
       <h2>Données de santé</h2>
       <p>
-        Le sommeil, les douleurs et la fréquence cardiaque sont des données de santé. Nous ne les collectons qu’avec ton consentement explicite,
-        donné à l’inscription. Tu peux le retirer à tout moment dans ton compte, rubrique Confidentialité.
+        Le sommeil, les douleurs, la fréquence cardiaque, la variabilité cardiaque et le stress sont des données de santé. Nous ne les collectons
+        qu’avec ton consentement explicite : celui donné à l’inscription, et, pour les mesures de ta montre, l’autorisation que tu donnes à Garmin
+        (ou à un autre service) en connectant ton compte. Tu peux retirer ces consentements à tout moment dans ton compte, rubrique
+        Confidentialité, et sur la page Montres.
       </p>
 
       <h2>Pourquoi nous les utilisons</h2>
@@ -57,12 +59,21 @@ export default function Confidentialite() {
       <h2>Montres et applications connectées</h2>
       <p>
         Si tu relies un compte Garmin, Polar, COROS ou Strava, Monotrace y envoie tes séances planifiées et reçoit le résumé de tes sorties :
-        date, durée, distance, dénivelé, fréquence cardiaque moyenne et nom de l’activité. Ces données servent uniquement à comparer le prévu
-        et le réalisé et à ajuster ton plan. Elles sont stockées avec le reste de ton compte, à Paris, et ne sont transmises à aucun autre service.
+        date, durée, distance, dénivelé, fréquence cardiaque moyenne et nom de l’activité.
+      </p>
+      <p>
+        Avec Garmin, Monotrace reçoit aussi, chaque matin, les mesures de ta nuit et de ta récupération : durée, phases et score de sommeil,
+        fréquence cardiaque au repos, variabilité cardiaque nocturne, stress moyen et Body Battery. Le moteur de Monotrace les compare à tes propres
+        valeurs des quatre dernières semaines pour ajuster ta séance du jour. Ces calculs sont faits par notre logiciel, selon des règles fixes ;
+        aucune de ces données n’est analysée par un outil d’intelligence artificielle.
+      </p>
+      <p>
+        Toutes ces données servent uniquement à suivre et adapter ton entraînement. Elles sont stockées avec le reste de ton compte, à Paris,
+        et ne sont transmises à aucun autre service.
       </p>
       <p>
         Tu peux déconnecter un compte à tout moment depuis la page Montres de l’app : les accès à ce service sont aussitôt effacés, et tu peux
-        choisir de supprimer aussi toutes les sorties importées depuis ce service. Les marques Garmin, Polar, COROS et Strava appartiennent à leurs propriétaires respectifs.
+        choisir de supprimer aussi toutes les sorties et mesures importées depuis ce service. Les marques Garmin, Polar, COROS et Strava appartiennent à leurs propriétaires respectifs.
       </p>
 
       <h2>Qui peut les voir</h2>

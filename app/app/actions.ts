@@ -5,6 +5,7 @@ import { redirect } from 'next/navigation';
 import { adapterSemaine, appliquerDecision, type Jour, type Niveau, type SeanceRealisee } from '@/lib/moteur-entrainement';
 import { ajouterJoursIso, isoAujourdhui } from '@/lib/format';
 import { adapterSeanceDuJour, type Adaptation, type BilanMatin } from '@/lib/quotidien';
+import { lectureDuJour } from '@/lib/donnees';
 import { chargesHebdo, nouveauPlan } from '@/lib/plan-utils';
 import { supabaseServeur } from '@/lib/supabase/server';
 import type { Bilan, ObjectifDb, PlanDb, Preferences, Profil, SeanceRealiseeDb } from '@/lib/types';
@@ -217,7 +218,9 @@ export async function enregistrerBilanMatin(b: BilanMatin): Promise<{ erreur?: s
   ]);
   const prevue = plan?.contenu.semaines.flatMap((s) => s.seances).find((s) => s.date === date) ?? null;
   const [charge] = chargesHebdo(realisees ?? [], [ajouterJoursIso(date, -6)]);
-  const adaptation = adapterSeanceDuJour(prevue, bilan, charge?.acwr ?? null);
+  const montre = await lectureDuJour(supabase, userId, date);
+  const adaptation = adapterSeanceDuJour(prevue, bilan, charge?.acwr ?? null, montre);
+  adaptation.montre = montre ? { points: montre.points, indicateurs: montre.indicateurs } : null;
   const { error } = await supabase.from('bilans_matin').upsert({
     user_id: userId, date, sommeil: bilan.sommeil, energie: bilan.energie, jambes: bilan.jambes,
     douleur: bilan.douleur, zone_douleur: bilan.zoneDouleur, score: adaptation.score, adaptation,

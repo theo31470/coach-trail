@@ -40,7 +40,7 @@ const env = (k: string) => process.env[k] || undefined;
 export const FOURNISSEURS: Record<Exclude<Fournisseur, 'suunto'>, ConfigFournisseur> = {
   garmin: {
     id: 'garmin', nom: 'Garmin Connect', couleur: '#007CC3',
-    description: 'Tes séances arrivent dans le calendrier Garmin Connect puis sur ta montre, avec chaque bloc et sa cible.',
+    description: 'Tes séances arrivent sur ta montre avec chaque bloc et sa cible ; ton sommeil, ta FC au repos, ta VFC et tes sorties remontent tout seuls dans Monotrace.',
     capacites: { importer: false, envoyer: true }, agrement: true, pkce: true,
     urlAutorisation: 'https://connect.garmin.com/oauth2Confirm',
     clientId: env('GARMIN_CLIENT_ID'), clientSecret: env('GARMIN_CLIENT_SECRET'),
@@ -126,13 +126,30 @@ export async function echangerCode(f: ConfigFournisseur, code: string, redirecti
 }
 
 /** Polar exige d'enregistrer l'utilisateur une fois après l'autorisation. */
-export async function apresConnexion(f: ConfigFournisseur, jetons: Jetons, userId: string) {
-  if (f.id !== 'polar') return;
+/** Garmin : identifiant du compte, qui relie les données envoyées par Garmin au bon membre. */
+export async function identifiantGarmin(accessToken: string): Promise<string> {
+  const r = await fetch('https://apis.garmin.com/wellness-api/rest/user/id', { headers: { Authorization: `Bearer ${accessToken}` } });
+  if (!r.ok) throw new Error('Identifiant Garmin indisponible');
+  const { userId } = await r.json();
+  if (!userId) throw new Error('Identifiant Garmin indisponible');
+  return String(userId);
+}
+
+/** Garmin : retire l'autorisation côté Garmin quand le membre déconnecte sa montre depuis Monotrace. */
+export async function revoquerGarmin(accessToken: string) {
+  await fetch('https://apis.garmin.com/wellness-api/rest/user/registration', { method: 'DELETE', headers: { Authorization: `Bearer ${accessToken}` } }).catch(() => undefined);
+}
+
+/** Étapes propres à chaque fournisseur après l'autorisation. Renvoie l'identifiant du compte externe s'il y en a un. */
+export async function apresConnexion(f: ConfigFournisseur, jetons: Jetons, userId: string): Promise<string | null> {
+  if (f.id === 'garmin') return identifiantGarmin(jetons.access_token);
+  if (f.id !== 'polar') return null;
   const r = await fetch('https://www.polaraccesslink.com/v3/users', {
     method: 'POST', headers: { Authorization: `Bearer ${jetons.access_token}`, 'Content-Type': 'application/json', Accept: 'application/json' },
     body: JSON.stringify({ 'member-id': userId }),
   });
   if (!r.ok && r.status !== 409) throw new Error('Enregistrement Polar impossible');
+  return null;
 }
 
 /** Renouvelle un jeton Strava expiré. Renvoie les nouveaux jetons, ou null s'il est encore valide. */

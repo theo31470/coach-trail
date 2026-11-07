@@ -1,13 +1,14 @@
 import Link from 'next/link';
 import AnalyseSeance from '@/components/AnalyseSeance';
 import BilanMatin from '@/components/BilanMatin';
+import CarteNuit from '@/components/CarteNuit';
 import BoutonBilan, { ResumeBilan } from '@/components/BoutonBilan';
 import EnvoiMontre from '@/components/EnvoiMontre';
 import { Anneau } from '@/components/Graphiques';
 import { IcCoche, IcCourir, IcLecture, IcLune, IcSoleilLeve, IcSync } from '@/components/Icones';
 import MontagnePlan from '@/components/MontagnePlan';
 import ProfilSeance from '@/components/ProfilSeance';
-import { bilanDuJour, connexions, membreConnecte, planActif, seancesRealisees, urlAgenda } from '@/lib/donnees';
+import { bilanDuJour, connexions, lectureDuJour, membreConnecte, planActif, seancesRealisees, urlAgenda } from '@/lib/donnees';
 import {
   JOURS, PHASES, PHASES_TEXTE, ajouterJoursIso, dateLongue, duree, ecartJours, isoAujourdhui, majuscule,
 } from '@/lib/format';
@@ -27,13 +28,15 @@ export default async function Aujourdhui({ searchParams }: { searchParams: Promi
   const { bienvenue, bilan: ouvrirBilan } = await searchParams;
   const { supabase, user, profil } = await membreConnecte();
   const aujourdhui = isoAujourdhui();
-  const [{ plan, objectif }, realisees, bilan, liens, agenda] = await Promise.all([
+  const [{ plan, objectif }, realisees, bilan, liens, agenda, nuit] = await Promise.all([
     planActif(supabase, user.id),
     seancesRealisees(supabase, user.id, ajouterJoursIso(aujourdhui, -70)),
     bilanDuJour(supabase, user.id, aujourdhui),
     connexions(supabase, user.id),
     urlAgenda(profil.jeton_calendrier),
+    lectureDuJour(supabase, user.id, aujourdhui),
   ]);
+  const sommeilMontre = nuit?.sommeilSuggere ? { note: nuit.sommeilSuggere, texte: nuit.indicateurs.find((i) => i.cle === 'sommeil')?.valeur + ' de sommeil' } : null;
 
   if (!plan || !objectif) {
     return (
@@ -97,7 +100,8 @@ export default async function Aujourdhui({ searchParams }: { searchParams: Promi
             <span className="moment-point" aria-hidden="true">{bilan ? <IcCoche /> : <IcSoleilLeve />}</span>
             <div className="moment-corps">
               <p className="moment-titre">Ce matin · bilan de forme</p>
-              <BilanMatin fait={bilan} ouvrir={ouvrirBilan === '1' && !bilan} />
+              {nuit && <CarteNuit lecture={nuit} />}
+              <BilanMatin fait={bilan} ouvrir={ouvrirBilan === '1' && !bilan} sommeilMontre={sommeilMontre} />
             </div>
           </li>
 
