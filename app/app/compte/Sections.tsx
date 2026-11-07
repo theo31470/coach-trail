@@ -252,7 +252,7 @@ function SectionPreferences({ profil }: Props) {
       <Bloc titre="Accompagnement quotidien" description="Chaque matin, ta séance du jour et le rappel de ton bilan de forme.">
         <Notifications />
         <Interrupteur titre="Notification du matin" texte="Séance du jour et rappel du bilan (si les notifications sont activées sur ton téléphone)." coche={p.notif_seance !== false} onChange={(v) => maj('notif_seance', v)} />
-        <Interrupteur titre="E-mail du matin" texte="Le programme du jour, son déroulé et le lien vers ton bilan." coche={p.email_quotidien !== false} onChange={(v) => maj('email_quotidien', v)} />
+        <Interrupteur titre="Récap du matin par e-mail" texte="Un e-mail par jour : ta nuit (si ta montre Garmin est connectée), tes prochaines séances et les conseils du moteur." coche={p.email_quotidien !== false} onChange={(v) => maj('email_quotidien', v)} />
         <Interrupteur titre="Rappel de bilan hebdomadaire" texte="Le lundi, si le bilan de la semaine n’est pas fait." coche={!!p.notif_bilan} onChange={(v) => maj('notif_bilan', v)} />
         <Interrupteur titre="Conseils et nouveautés" coche={!!p.notif_conseils} onChange={(v) => maj('notif_conseils', v)} />
       </Bloc>

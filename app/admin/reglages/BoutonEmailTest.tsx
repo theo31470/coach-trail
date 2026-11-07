@@ -10,7 +10,7 @@ export default function BoutonEmailTest() {
     <div className="stack">
       <button type="button" className="btn btn-primary" disabled={enCours} style={{ alignSelf: 'flex-start' }}
         onClick={() => demarrer(async () => setMsg(await emailTestMatin()))}>
-        {enCours ? 'Envoi…' : 'M’envoyer l’e-mail du matin'}
+        {enCours ? 'Envoi…' : 'M’envoyer mon récap du matin'}
       </button>
       {msg && <p className={`small ${msg.ok ? '' : 'erreur'}`} role="status">{msg.texte}</p>}
     </div>

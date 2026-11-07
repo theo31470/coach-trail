@@ -85,7 +85,7 @@ export default function Confidentialite() {
           <ul>
             <li>Supabase : base de données, hébergée à Paris (région eu-west-3) ;</li>
             <li>Vercel : hébergement du site, avec les traitements exécutés à Paris ;</li>
-            <li>Resend : envoi des e-mails (ton adresse e-mail et le contenu de l’e-mail du matin).</li>
+            <li>Resend : envoi des e-mails (ton adresse e-mail et le contenu du récap du matin, qui peut inclure les mesures de ta nuit).</li>
           </ul>
         </li>
         <li><strong>Les services que tu connectes toi-même</strong> (Garmin, Polar, COROS, Strava), pour les seules séances que tu choisis de leur envoyer.</li>

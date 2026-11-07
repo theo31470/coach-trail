@@ -1,5 +1,7 @@
 import { createClient } from '@supabase/supabase-js';
-import { NextResponse } from 'next/server';
+import { after, NextResponse } from 'next/server';
+import { isoAujourdhui } from './format';
+import { envoyerRecaps } from './recap-envoi';
 import { jetonPush, lignesAEcrire, lirePush, type CompteGarmin } from './garmin';
 
 /** Traitement commun : la clé arrive soit dans le chemin (/api/garmin/push/<clé>), soit en paramètre (?cle=). */
@@ -23,6 +25,17 @@ export async function recevoir(requete: Request, cle: string | null) {
     p_secret: secret, p_mesures: lignes.mesures, p_seances: lignes.seances, p_deconnexions: lignes.deconnexions, p_courbes: lignes.courbes,
   });
   if (e2) return NextResponse.json({ erreur: e2.message }, { status: 500 });
+
+  // Nuit du jour reçue : on envoie le récap du matin, après un court délai pour laisser arriver VFC et FC au repos
+  const auj = isoAujourdhui();
+  const heure = Number(new Intl.DateTimeFormat('fr-FR', { timeZone: 'Europe/Paris', hour: 'numeric', hour12: false }).format(new Date()));
+  const reveils = [...new Set(lignes.mesures.filter((m) => m.date === auj && m.sommeil_min != null).map((m) => m.user_id))];
+  if (reveils.length && heure >= 4 && heure < 14) {
+    after(async () => {
+      await new Promise((r) => setTimeout(r, 40_000));
+      await envoyerRecaps(supabase, secret, { date: auj, site: process.env.SITE_URL ?? 'https://monotrace.fr', declencheur: 'montre', ids: reveils }).catch(() => undefined);
+    });
+  }
   return NextResponse.json({ ok: true, mesures: lignes.mesures.length, seances: lignes.seances.length, courbes: lignes.courbes.length, deconnexions: lignes.deconnexions.length });
 }
 

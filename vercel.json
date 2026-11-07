@@ -1,4 +1,15 @@
 {
-  "regions": ["cdg1"],
-  "crons": [{ "path": "/api/cron/quotidien", "schedule": "15 5 * * *" }]
+  "regions": [
+    "cdg1"
+  ],
+  "crons": [
+    {
+      "path": "/api/cron/quotidien",
+      "schedule": "15 5 * * *"
+    },
+    {
+      "path": "/api/cron/quotidien?vague=rattrapage",
+      "schedule": "0 10 * * *"
+    }
+  ]
 }
