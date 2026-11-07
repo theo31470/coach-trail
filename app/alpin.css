@@ -317,3 +317,11 @@ input[type='range'] { accent-color: var(--bleu); }
 @media (prefers-reduced-motion: reduce) { .logo .s-halo { animation: none; } }
 .admin .barre-laterale .logo { font-size: 17.5px; gap: 7px; }
 .admin .barre-laterale .logo .symbole { width: 30px; height: 30px; }
+
+/* Page Confidentialité */
+.confidentialite .tiny { margin-top: -14px; }
+.conf-essentiel { margin: 28px 0 8px; padding: 22px 24px 10px; border-radius: 18px; background: var(--bleu-glace); border: 1px solid var(--line); }
+.conf-essentiel h2 { margin-top: 0 !important; }
+.conf-essentiel li { color: var(--ink) !important; }
+.page-texte ul ul { margin-top: 8px; }
+.page-texte a { color: var(--bleu); }

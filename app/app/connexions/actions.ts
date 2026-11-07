@@ -70,10 +70,12 @@ export async function synchroniser(): Promise<{ erreur?: string; importees?: num
   return { importees };
 }
 
-export async function deconnecter(fournisseur: Fournisseur) {
+/** Déconnecte un service : ses accès sont effacés, et ses sorties importées aussi si le membre le demande. */
+export async function deconnecter(fournisseur: Fournisseur, supprimerSorties = false) {
   const { supabase, userId } = await session();
   await supabase.from('connexions').delete().eq('user_id', userId).eq('fournisseur', fournisseur);
-  revalidatePath('/app/connexions');
+  if (supprimerSorties) await supabase.from('seances_realisees').delete().eq('user_id', userId).eq('source', fournisseur);
+  revalidatePath('/app', 'layout');
 }
 
 /** Envoie la séance (adaptée au bilan du matin si besoin) vers Garmin Connect. */
