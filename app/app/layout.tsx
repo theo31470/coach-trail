@@ -35,7 +35,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
   const liens = [
     { href: '/app', libelle: 'Ma journée', icone: <IcAujourdhui />, exact: true },
     { href: '/app/plan', libelle: 'Mon plan', icone: <IcPlan /> },
-    { href: '/app/progression', libelle: 'Progression', icone: <IcProgression /> },
+    { href: '/app/forme', libelle: 'Ma forme', icone: <IcProgression /> },
     { href: '/app/connexions', libelle: 'Montres', icone: <IcMontre /> },
     { href: '/app/compte', libelle: 'Compte', icone: <IcCompte /> },
   ];

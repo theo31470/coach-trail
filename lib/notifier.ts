@@ -27,13 +27,20 @@ export async function envoyerPush(abonnement: { endpoint: string; keys: { p256dh
 }
 
 export async function envoyerEmail(a: string, sujet: string, html: string, texte: string) {
-  if (!emailActif()) return false;
+  return (await envoyerEmailDetail(a, sujet, html, texte)).ok;
+}
+
+/** Comme envoyerEmail, avec le message d'erreur de Resend (utile pour l'e-mail de test). */
+export async function envoyerEmailDetail(a: string, sujet: string, html: string, texte: string): Promise<{ ok: boolean; erreur?: string }> {
+  if (!emailActif()) return { ok: false, erreur: 'Envoi d’e-mails non configuré (clé Resend ou expéditeur manquant).' };
   const r = await fetch('https://api.resend.com/emails', {
     method: 'POST',
     headers: { Authorization: `Bearer ${process.env.RESEND_API_KEY}`, 'Content-Type': 'application/json' },
     body: JSON.stringify({ from: process.env.EMAIL_EXPEDITEUR, to: [a], subject: sujet, html, text: texte }),
   });
-  return r.ok;
+  if (r.ok) return { ok: true };
+  const corps = await r.json().catch(() => null) as { message?: string } | null;
+  return { ok: false, erreur: corps?.message ?? `Resend a répondu ${r.status}.` };
 }
 
 const esc = (t: string) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');

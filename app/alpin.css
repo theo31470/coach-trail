@@ -383,3 +383,47 @@ input[type='range'] { accent-color: var(--bleu); }
 .table-courbes th { text-align: left; font-weight: 600; font-size: 12px; color: var(--ink-2); padding: 6px 8px; border-bottom: 1px solid var(--line); white-space: nowrap; }
 .table-courbes td { padding: 7px 8px; border-bottom: 1px solid var(--line); white-space: nowrap; color: var(--ink); }
 @media (max-width: 560px) { .courbes { padding: 16px; } }
+
+/* ───── Ma forme ───── */
+.forme-periodes { display: inline-flex; gap: 4px; padding: 4px; border-radius: 12px; background: var(--bleu-glace); border: 1px solid var(--line); align-self: center; }
+.forme-periodes a { padding: 7px 12px; border-radius: 9px; font-size: 13.5px; font-weight: 600; color: var(--ink-2); text-decoration: none; }
+.forme-periodes a.actif { background: var(--surface); color: var(--ink); box-shadow: 0 1px 3px rgba(10, 26, 63, .1); }
+.forme-invite { display: flex; gap: 16px; align-items: center; justify-content: space-between; flex-wrap: wrap; margin-bottom: 18px; }
+.forme-invite p { max-width: 62ch; margin: 0; }
+.forme-tuiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 12px; }
+.forme-tuile { display: flex; flex-direction: column; gap: 4px; padding: 14px 16px; border-radius: 16px; background: var(--surface); border: 1px solid var(--line); }
+.forme-tuile-lib { font-size: 13px; color: var(--ink-2); }
+.forme-tuile-val { font-size: 26px; font-weight: 800; font-stretch: 112%; letter-spacing: -.01em; color: var(--ink); line-height: 1.1; }
+.forme-tuile-val small { font-size: 13px; font-weight: 600; color: var(--ink-2); }
+.forme-tuile-det { font-size: 12.5px; color: var(--ink-2); }
+.forme-tuile.s-mieux .forme-tuile-det { color: var(--bleu); font-weight: 600; }
+.forme-tuile.s-moins { border-color: rgba(217, 119, 6, .45); }
+.forme-tuile.s-moins .forme-tuile-det { color: #B45309; font-weight: 600; }
+.forme-constats { display: grid; gap: 10px; margin-top: 18px; }
+.forme-constat { padding: 14px 16px 14px 18px; border-radius: 14px; background: var(--surface); border: 1px solid var(--line); border-left-width: 4px; }
+.forme-constat strong { display: block; color: var(--ink); }
+.forme-constat p { margin: 4px 0 0; font-size: 14.5px; color: var(--ink-2); max-width: 75ch; }
+.forme-constat.t-bien { border-left-color: var(--bleu); }
+.forme-constat.t-info { border-left-color: #7DD3FC; }
+.forme-constat.t-vigilance { border-left-color: #F59E0B; }
+.forme-constat.t-alerte { border-left-color: #DC2626; }
+.tf { position: relative; touch-action: pan-y; }
+.tf-panneau { margin-bottom: 10px; }
+.tf-entete { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 2px; }
+.tf-titre { font-size: 13px; font-weight: 700; color: var(--ink-2); }
+.tf-dernier { font-size: 12.5px; color: var(--ink-2); }
+.tf svg { display: block; max-width: 100%; overflow: visible; }
+.tf-base { stroke: var(--line); }
+.tf-axe { font-size: 11px; fill: var(--ink-2); }
+.tf-ref { stroke: var(--ink-3, #7D89A6); stroke-dasharray: 4 4; stroke-width: 1; }
+.tf-ref-txt { font-size: 11px; fill: var(--ink-3, #7D89A6); }
+.tf-ligne { fill: none; stroke: var(--bleu); stroke-width: 2; stroke-linejoin: round; }
+.tf-point { fill: var(--bleu); stroke: var(--surface); stroke-width: 1.5; }
+.tf-barre { fill: #8FB0FF; }
+.tf-barre.actif { fill: var(--bleu); }
+.tf-curseur { stroke: var(--ink-2); stroke-dasharray: 3 3; }
+.tf-dates { display: flex; justify-content: space-between; font-size: 12px; color: var(--ink-2); }
+.tf-infobulle { position: sticky; top: 8px; z-index: 3; display: flex; flex-wrap: wrap; gap: 4px 10px; justify-content: flex-end; margin: -6px 0 6px auto; width: fit-content;
+  padding: 6px 10px; border-radius: 10px; background: var(--bleu-nuit); color: #fff; font-size: 12.5px; pointer-events: none; transition: opacity .15s; }
+.tf-infobulle span { color: #C9D6F5; }
+.tf-infobulle[data-visible='non'] { opacity: 0; }

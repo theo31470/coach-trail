@@ -46,7 +46,7 @@ export default async function Progression() {
 
   return (
     <div>
-      <div className="titre-page"><div><h1>Progression</h1><p>Ton entraînement réel, semaine après semaine.</p></div></div>
+      <div className="titre-page"><div><h1>Progression</h1><p>Ton entraînement réel, semaine après semaine. <Link href="/app/forme">Retour à Ma forme</Link></p></div></div>
 
       <div className="grille-4">
         <div className="kpi"><div className="valeur">{total.seances}</div><div className="libelle">séances enregistrées</div></div>

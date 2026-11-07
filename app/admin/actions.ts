@@ -2,7 +2,10 @@
 
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
-import { staffConnecte } from '@/lib/donnees';
+import { planActif, staffConnecte } from '@/lib/donnees';
+import { chrono, duree, ecartJours, isoAujourdhui } from '@/lib/format';
+import { emailDuMatin, envoyerEmailDetail } from '@/lib/notifier';
+import { cibleBloc, detaillerSeance } from '@/lib/seance-detail';
 import { nouveauPlan } from '@/lib/plan-utils';
 import type { ObjectifDb, Profil } from '@/lib/types';
 
@@ -55,4 +58,26 @@ export async function majReglages(inscriptions: boolean, annonce: string, essai:
   const { error } = await supabase.rpc('admin_maj_reglages', { p_inscriptions: inscriptions, p_annonce: annonce, p_essai: essai });
   revalidatePath('/', 'layout');
   return message(error);
+}
+
+/** Envoie à l'administrateur connecté l'e-mail du matin de sa prochaine séance, pour vérifier le rendu. */
+export async function emailTestMatin(): Promise<{ ok: boolean; texte: string }> {
+  const { supabase, user, profil } = await staffConnecte();
+  if (!user.email) return { ok: false, texte: 'Ton compte n’a pas d’adresse e-mail.' };
+  const { plan, objectif } = await planActif(supabase, user.id);
+  if (!plan) return { ok: false, texte: 'Crée d’abord ton plan dans l’app : l’e-mail présente la séance du jour.' };
+  const aujourdhui = isoAujourdhui();
+  const seance = plan.contenu.semaines.flatMap((s) => s.seances).find((s) => s.date >= aujourdhui && s.type !== 'course');
+  if (!seance) return { ok: false, texte: 'Aucune séance à venir dans ton plan.' };
+  const detail = detaillerSeance(seance);
+  const titre = `${detail.titre} · ${duree(seance.dureeMin)}`;
+  const { html, texte } = emailDuMatin({
+    prenom: profil.prenom ?? null, site: process.env.SITE_URL ?? 'https://monotrace.fr', titre, resume: detail.resume, pourquoi: seance.pourquoi,
+    joursAvant: objectif?.date ? ecartJours(aujourdhui, objectif.date) : null, course: objectif?.nom ?? null, seanceId: seance.id,
+    blocs: detail.blocs.filter((b) => b.type !== 'recup').slice(0, 8).map((b) => ({ titre: b.repetition ? `${b.titre} (${b.repetition})` : b.titre, duree: chrono(b.dureeSec), cible: cibleBloc(b.zone, plan.contenu.zones) })),
+  });
+  const r = await envoyerEmailDetail(user.email, `[Test] ☀️ ${titre}`, html, texte);
+  return r.ok
+    ? { ok: true, texte: `E-mail envoyé à ${user.email} (séance du ${new Date(`${seance.date}T12:00:00`).toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' })}). Pense à regarder dans les spams.` }
+    : { ok: false, texte: `Échec de l’envoi : ${r.erreur}` };
 }
