@@ -23,7 +23,7 @@ export default async function Reglages() {
             Cette adresse contient une clé secrète : ne la partage pas.
           </p>
           <input className="mt-16" readOnly style={{ width: '100%' }}
-            value={`${process.env.SITE_URL ?? 'https://monotrace.fr'}/api/garmin/push?cle=${jetonPush(process.env.CRON_SECRET)}`} />
+            value={`${process.env.SITE_URL ?? 'https://monotrace.fr'}/api/garmin/push/${jetonPush(process.env.CRON_SECRET)}`} />
         </section>
       )}
     </div>
