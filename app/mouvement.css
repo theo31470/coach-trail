@@ -186,7 +186,9 @@ a.jour:hover { transform: translateY(-3px); box-shadow: var(--ombre-haute); }
 @keyframes lever { from { transform: translateY(70px); opacity: .3; } }
 .paysage .couche { animation: couche 1.2s calc(var(--i) * 90ms + .15s) var(--doux) both; }
 @keyframes couche { from { transform: translateY(calc(30px + var(--i) * 8px)); opacity: 0; } }
-.paysage .trace-course { animation: marche 1.4s linear infinite; }
+.paysage .trace-course { stroke-dasharray: 1; stroke-dashoffset: 1; animation: tracer 2.4s .7s cubic-bezier(.45, .1, .25, 1) forwards; }
+@keyframes tracer { to { stroke-dashoffset: 0; } }
+.paysage .repere-halo { transform-box: fill-box; transform-origin: center; animation: halo-sommet 3.2s 3s ease-in-out infinite; }
 @keyframes marche { to { stroke-dashoffset: -34; } }
 .paysage .repere { transform-box: fill-box; transform-origin: center bottom; animation: repere .5s calc(var(--i) * 120ms + 1s) var(--ressort) both; }
 @keyframes repere { from { opacity: 0; transform: translateY(10px) scale(.8); } }

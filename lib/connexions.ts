@@ -54,7 +54,7 @@ export const FOURNISSEURS: Record<Exclude<Fournisseur, 'suunto'>, ConfigFourniss
   },
   polar: {
     id: 'polar', nom: 'Polar Flow', couleur: '#D10027',
-    description: 'Tes sorties enregistrées avec ta Polar remontent automatiquement dans Coach Trail.',
+    description: 'Tes sorties enregistrées avec ta Polar remontent automatiquement dans Monotrace.',
     capacites: { importer: true, envoyer: false }, agrement: false, scope: 'accesslink.read_all',
     urlAutorisation: 'https://flow.polar.com/oauth2/authorization',
     clientId: env('POLAR_CLIENT_ID'), clientSecret: env('POLAR_CLIENT_SECRET'),
@@ -222,7 +222,7 @@ export async function envoyerVersGarmin(accessToken: string, seance: Seance, det
     type: 'WorkoutStep', stepOrder: ++ordre, intensity: INT[b.type], description: b.consigne.slice(0, 500),
     durationType: 'TIME', durationValue: b.dureeSec, ...cible(b.zone),
   }));
-  const corps = { workoutName: detail.titre.slice(0, 80), description: detail.resume, sport: 'RUNNING', workoutProvider: 'Coach Trail', segments: [{ segmentOrder: 1, sport: 'RUNNING', steps }] };
+  const corps = { workoutName: detail.titre.slice(0, 80), description: detail.resume, sport: 'RUNNING', workoutProvider: 'Monotrace', segments: [{ segmentOrder: 1, sport: 'RUNNING', steps }] };
   const r = await fetch('https://apis.garmin.com/workoutportal/workout/v2', {
     method: 'POST', headers: { Authorization: `Bearer ${accessToken}`, 'Content-Type': 'application/json' }, body: JSON.stringify(corps),
   });

@@ -2,14 +2,14 @@
 
 import { useRouter } from 'next/navigation';
 import { useEffect, useMemo, useState, useTransition } from 'react';
-import { Marque } from '@/components/Logo';
+import { Symbole, MotMarque } from '@/components/Logo';
 import { JOURS, ajouterJoursIso, isoAujourdhui } from '@/lib/format';
 import type { Jour, Niveau } from '@/lib/moteur-entrainement';
 import { terminerOnboarding } from '../actions';
 import './montee.css';
 
 /**
- * « La montée » : l'arrivée dans Coach Trail.
+ * « La montée » : l'arrivée dans Monotrace.
  * Une question par écran, uniquement des choix à toucher. Les chiffres que beaucoup
  * de coureurs ne connaissent pas (volume, D+, FC, chrono) sont estimés à partir des réponses.
  * Le ciel passe de la nuit à l'aube et le coureur grimpe d'une balise à l'autre.
@@ -155,7 +155,7 @@ export default function Assistant({ prenom: prenomInitial, dejaFait }: { prenom:
       <div className="montee-ciel" aria-hidden="true"><i className="etoiles" /><i className="soleil" /></div>
 
       <header className="montee-haut">
-        <span className="montee-marque"><Marque taille={26} /> Coach Trail</span>
+        <span className="montee-marque"><Symbole taille={28} ton="nuit" /><MotMarque /></span>
         <span className="montee-compte">{etape === 'sommet' ? 'Sommet' : `Balise ${i + 1} sur ${etapes.length - 1}`}</span>
       </header>
 

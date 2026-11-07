@@ -21,7 +21,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
       <div className="auth" data-theme={theme} style={{ minHeight: '100vh' }}>
         <div className="carte stack">
           <h1>Compte suspendu</h1>
-          <p className="muted">Ton compte est momentanément suspendu. Contacte l’équipe Coach Trail pour en savoir plus.</p>
+          <p className="muted">Ton compte est momentanément suspendu. Contacte l’équipe Monotrace pour en savoir plus.</p>
           <form action={deconnexion}><button className="btn btn-ghost">Se déconnecter</button></form>
         </div>
       </div>

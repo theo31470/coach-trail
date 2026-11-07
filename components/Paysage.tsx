@@ -1,6 +1,6 @@
 /**
  * Paysage alpin calculé (aucune image) : crêtes bleutées, sommets enneigés,
- * et au premier plan le profil d'altitude d'un trail de 30 km avec ses repères.
+ * et au premier plan la « trace » d'un trail de 30 km, du départ (anneau) au sommet (point et halo).
  */
 
 const L = 1440;
@@ -77,12 +77,19 @@ export default function Paysage() {
       ))}
       <g className="couche" style={{ '--i': 5 } as React.CSSProperties}>
         <path d={`${LIGNE}L${L} ${H}L0 ${H}Z`} fill="#0A1A3F" />
-        <path className="trace-course" d={LIGNE} fill="none" stroke="#7DD3FC" strokeWidth="2.5" strokeDasharray="10 7" strokeLinejoin="round" />
+        <path className="trace-course" d={LIGNE} pathLength={1} fill="none" stroke="#7DD3FC" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" />
         {REPERES.map((r, k) => (
-          <g key={r.nom} className="repere" style={{ '--i': k } as React.CSSProperties}>
-            <circle cx={x(r.km) + r.dx} cy={y(r.alt)} r="6" fill="#0A1A3F" stroke="#7DD3FC" strokeWidth="3" />
-            <text x={x(r.km) + r.dx} y={y(r.alt) - 32} textAnchor={r.ancre}>{r.nom}</text>
-            <text className="alt" x={x(r.km) + r.dx} y={y(r.alt) - 15} textAnchor={r.ancre}>{r.alt.toLocaleString('fr-FR')} m</text>
+          <g key={r.nom} className="repere" style={{ '--i': k, animationDelay: `${(0.6 + 2.3 * (r.km / 30)).toFixed(2)}s` } as React.CSSProperties}>
+            {r.km === 21 ? (
+              <>
+                <circle className="repere-halo" cx={x(r.km)} cy={y(r.alt)} r="15" fill="none" stroke="#7DD3FC" strokeWidth="2.5" />
+                <circle cx={x(r.km)} cy={y(r.alt)} r="8" fill="#7DD3FC" />
+              </>
+            ) : (
+              <circle cx={x(r.km) + r.dx} cy={y(r.alt)} r={r.km === 0 ? 7 : 5} fill="#0A1A3F" stroke={r.km === 0 ? '#FFFFFF' : '#7DD3FC'} strokeWidth="3.5" />
+            )}
+            <text x={x(r.km) + r.dx} y={y(r.alt) - (r.km === 21 ? 42 : 32)} textAnchor={r.ancre}>{r.nom}</text>
+            <text className="alt" x={x(r.km) + r.dx} y={y(r.alt) - (r.km === 21 ? 25 : 15)} textAnchor={r.ancre}>{r.alt.toLocaleString('fr-FR')} m</text>
           </g>
         ))}
       </g>

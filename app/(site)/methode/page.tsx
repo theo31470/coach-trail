@@ -6,7 +6,7 @@ export default function Methode() {
   return (
     <article className="page-texte">
       <div className="eyebrow">La méthode</div>
-      <h1 className="mt-8">Comment Coach Trail construit ton plan</h1>
+      <h1 className="mt-8">Comment Monotrace construit ton plan</h1>
       <p>Le plan est calculé par un moteur de règles issu des principes de l’entraînement en endurance. Toutes les valeurs sont relues avec un regard d’entraîneur avant chaque évolution.</p>
 
       <h2>1. Tes zones</h2>
@@ -37,8 +37,8 @@ export default function Methode() {
       </ul>
       <p>Chaque ajustement est expliqué en clair.</p>
 
-      <h2>Ce que Coach Trail ne fait pas</h2>
-      <p>Coach Trail ne pose aucun diagnostic et ne remplace pas un médecin ou un kinésithérapeute. En cas de douleur vive, persistante ou inhabituelle, arrête et consulte.</p>
+      <h2>Ce que Monotrace ne fait pas</h2>
+      <p>Monotrace ne pose aucun diagnostic et ne remplace pas un médecin ou un kinésithérapeute. En cas de douleur vive, persistante ou inhabituelle, arrête et consulte.</p>
 
       <p className="mt-32"><Link href="/inscription" className="btn btn-primary btn-l">Créer mon plan</Link></p>
     </article>

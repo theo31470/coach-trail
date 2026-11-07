@@ -1,5 +1,5 @@
-/* Coach Trail · service worker : notifications et page hors ligne. */
-const CACHE = 'coach-trail-v6';
+/* Monotrace · service worker : notifications et page hors ligne. */
+const CACHE = 'monotrace-v7';
 const HORS_LIGNE = '/hors-ligne';
 
 self.addEventListener('install', (e) => {
@@ -19,11 +19,11 @@ self.addEventListener('fetch', (e) => {
 self.addEventListener('push', (e) => {
   let d = {};
   try { d = e.data ? e.data.json() : {}; } catch { d = { corps: e.data && e.data.text() }; }
-  e.waitUntil(self.registration.showNotification(d.titre || 'Coach Trail', {
+  e.waitUntil(self.registration.showNotification(d.titre || 'Monotrace', {
     body: d.corps || '',
     icon: '/icones/icone-192.png',
     badge: '/icones/icone-192.png',
-    tag: d.tag || 'coach-trail',
+    tag: d.tag || 'monotrace',
     data: { url: d.url || '/app' },
   }));
 });

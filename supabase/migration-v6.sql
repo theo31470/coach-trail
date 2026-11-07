@@ -1,4 +1,4 @@
--- Coach Trail v6 : suivi quotidien, connexions montres, notifications, calendrier.
+-- Monotrace (ex-Coach Trail) v6 : suivi quotidien, connexions montres, notifications, calendrier.
 -- Le secret du cron (ligne « secret_cron ») est inséré à part, hors du dépôt.
 
 -- ───────────── Bilan du matin ─────────────

@@ -308,7 +308,7 @@ function SectionConfidentialite({ profil, nbSeances }: Props) {
           const donnees = await exporterDonnees();
           const url = URL.createObjectURL(new Blob([JSON.stringify(donnees, null, 2)], { type: 'application/json' }));
           const a = document.createElement('a');
-          a.href = url; a.download = `coach-trail-mes-donnees-${isoAujourdhui()}.json`; a.click();
+          a.href = url; a.download = `monotrace-mes-donnees-${isoAujourdhui()}.json`; a.click();
           URL.revokeObjectURL(url);
         }}>Télécharger mes données</button></div>
       </Bloc>

@@ -7,7 +7,7 @@ export const emailActif = () => Boolean(process.env.RESEND_API_KEY && process.en
 let pret = false;
 function preparer() {
   if (pret) return;
-  webpush.setVapidDetails(`mailto:${process.env.EMAIL_CONTACT ?? 'contact@coach-trail.fr'}`, process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY!, process.env.VAPID_PRIVATE_KEY!);
+  webpush.setVapidDetails(`mailto:${process.env.EMAIL_CONTACT ?? 'contact@monotrace.fr'}`, process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY!, process.env.VAPID_PRIVATE_KEY!);
   pret = true;
 }
 
@@ -49,8 +49,9 @@ export function emailDuMatin(o: {
   const html = `<!doctype html><html lang="fr"><body style="margin:0;background:#F3F6FC;font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:#0B1530">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td align="center" style="padding:24px 12px">
 <table role="presentation" width="100%" style="max-width:560px;background:#fff;border-radius:20px;overflow:hidden" cellpadding="0" cellspacing="0">
-<tr><td style="background:linear-gradient(135deg,#2F6BFF,#0A1A3F);background-color:#1D5BFF;padding:28px 28px 24px;color:#fff">
-<div style="font-size:13px;opacity:.8">Coach Trail · ta journée${o.joursAvant !== null && o.joursAvant > 0 ? ` · J-${o.joursAvant}${o.course ? ` avant ${esc(o.course)}` : ''}` : ''}</div>
+<tr><td style="background:linear-gradient(135deg,#1D5BFF,#0A1A3F);background-color:#0A1A3F;padding:28px 28px 24px;color:#fff">
+<div style="font-size:20px;letter-spacing:-.5px;line-height:1"><b style="font-weight:900">mono</b><span style="font-weight:400;color:#7DD3FC">trace</span></div>
+<div style="font-size:13px;opacity:.8;margin-top:14px">Ta journée${o.joursAvant !== null && o.joursAvant > 0 ? ` · J-${o.joursAvant}${o.course ? ` avant ${esc(o.course)}` : ''}` : ''}</div>
 <div style="font-size:26px;font-weight:800;margin-top:8px">Bonjour${o.prenom ? ` ${esc(o.prenom)}` : ''} !</div>
 <div style="font-size:18px;font-weight:700;margin-top:14px">${esc(o.titre)}</div>
 <div style="font-size:15px;opacity:.9;margin-top:4px">${esc(o.resume)}</div></td></tr>

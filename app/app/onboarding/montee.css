@@ -22,7 +22,8 @@
   transition: bottom 1.4s cubic-bezier(.3, .7, .2, 1), opacity 1.4s; }
 
 .montee-haut { position: relative; z-index: 2; display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 18px 22px; }
-.montee-marque { display: inline-flex; align-items: center; gap: 8px; font-weight: 800; font-stretch: 118%; font-size: 17px; }
+.montee-marque { display: inline-flex; align-items: center; gap: 8px; font-size: 19px; }
+.montee-marque .mot-marque span { color: #7DD3FC; }
 .montee-compte { font-size: 13.5px; font-weight: 600; color: rgba(255, 255, 255, .85); background: rgba(255, 255, 255, .1); padding: 6px 12px; border-radius: 99px; }
 
 .montee-scene { position: relative; z-index: 2; min-height: calc(100dvh - 64px); display: flex; flex-direction: column; align-items: center; padding: 3vh 18px 250px; }

@@ -35,9 +35,10 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
       <footer className="pied">
         <div className="conteneur">
           <div>
-            <Logo />
+            <Logo ton="nuit" />
+            <p className="pied-signature">Ton coach trail</p>
             <p className="mt-16" style={{ maxWidth: 340 }}>
-              Le coach trail et running qui t’accompagne chaque jour, de ton bilan du matin à l’analyse de ta sortie. Version bêta.
+              Monotrace t’accompagne chaque jour, du bilan du matin à l’analyse de ta sortie, jusqu’à la ligne d’arrivée. Version bêta.
             </p>
           </div>
           <div>

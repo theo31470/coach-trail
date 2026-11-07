@@ -1,4 +1,4 @@
-/* Coach Trail · thème « Alpin » — bleu alpin vif #1D5BFF sur blanc.
+/* Monotrace · thème « Alpin » — bleu alpin vif #1D5BFF sur blanc.
    Une seule couleur de marque, des surfaces blanches, des ombres teintées de bleu,
    et l'accompagnement quotidien comme fil conducteur de l'app. */
 
@@ -8,7 +8,8 @@
   --bleu-nuit: #0A1A3F;
   --bleu-clair: #EAF1FF;
   --bleu-glace: #F5F8FF;
-  --cyan: #38BDF8;
+  --glacier: #7DD3FC;
+  --cyan: var(--glacier);
   --bg: #F4F7FD;
   --bg-2: #E8EEF9;
   --surface-2: #F7F9FE;
@@ -278,3 +279,41 @@ input[type='range'] { accent-color: var(--bleu); }
 .entete-site .btn-ghost:hover { background: var(--bleu-glace); }
 .pied { background: var(--bleu-nuit); }
 .pied a:hover { color: #fff; }
+
+/* ───── Identité Monotrace : symbole « trace » et mot-marque ───── */
+.symbole { flex: none; overflow: visible; }
+.symbole .s-trace { stroke: var(--mt-trace); }
+.symbole .s-fantome { stroke: var(--mt-fantome); }
+.symbole .s-halo { stroke: var(--mt-halo); stroke-opacity: .4; }
+.symbole .s-sommet { fill: var(--mt-sommet); }
+.symbole .s-depart { fill: var(--mt-depart-fond); stroke: var(--mt-depart); }
+.ton-clair { --mt-trace: #0A1A3F; --mt-fantome: #C9D3E6; --mt-halo: #1D5BFF; --mt-sommet: #1D5BFF; --mt-depart: #1D5BFF; --mt-depart-fond: #fff; }
+.ton-nuit { --mt-trace: #fff; --mt-fantome: #2B4180; --mt-halo: #7DD3FC; --mt-sommet: #7DD3FC; --mt-depart: #7DD3FC; --mt-depart-fond: #0A1A3F; }
+.ton-bleu { --mt-trace: #fff; --mt-fantome: #6C98FF; --mt-halo: #BFE9FF; --mt-sommet: #7DD3FC; --mt-depart: #fff; --mt-depart-fond: #1D5BFF; }
+[data-theme='sombre'] .ton-clair { --mt-trace: #fff; --mt-fantome: #2B4180; --mt-halo: #7DD3FC; --mt-sommet: #7DD3FC; --mt-depart: #7DD3FC; --mt-depart-fond: var(--surface); }
+@media (prefers-color-scheme: dark) { [data-theme='systeme'] .ton-clair { --mt-trace: #fff; --mt-fantome: #2B4180; --mt-halo: #7DD3FC; --mt-sommet: #7DD3FC; --mt-depart: #7DD3FC; --mt-depart-fond: var(--surface); } }
+
+/* Halo du sommet : une respiration lente, seul mouvement permanent de la marque */
+.logo .s-halo { transform-box: fill-box; transform-origin: center; animation: halo-sommet 3.2s ease-in-out infinite; }
+@keyframes halo-sommet { 50% { transform: scale(1.25); stroke-opacity: .12; } }
+
+.mot-marque { display: inline-flex; align-items: baseline; font-stretch: 125%; letter-spacing: -0.035em; line-height: 1; }
+.mot-marque b { font-weight: 900; color: inherit; }
+.mot-marque span { font-weight: 420; color: var(--bleu); letter-spacing: -0.02em; }
+.logo { gap: 9px; font-size: 22px; font-weight: 900; font-stretch: 125%; color: var(--bleu-nuit); }
+.logo .symbole { margin-top: -4px; }
+.logo-suffixe { font-style: normal; font-size: 11.5px; font-weight: 700; font-stretch: 100%; letter-spacing: 0; padding: 3px 8px; border-radius: 99px;
+  background: rgba(125, 211, 252, .16); color: #7DD3FC; align-self: center; margin-left: 2px; }
+.logo-nuit, .entete-site .logo-nuit { color: #fff; }
+.logo-nuit .mot-marque span { color: #7DD3FC; }
+[data-theme='sombre'] .logo-clair { color: #fff; }
+[data-theme='sombre'] .logo-clair .mot-marque span { color: #7DD3FC; }
+@media (prefers-color-scheme: dark) { [data-theme='systeme'] .logo-clair { color: #fff; } [data-theme='systeme'] .logo-clair .mot-marque span { color: #7DD3FC; } }
+.barre-laterale .logo { font-size: 20px; padding: 6px 8px 20px; }
+@media (max-width: 420px) { .entete-site .logo { font-size: 18px; gap: 7px; } .entete-site .logo .symbole { width: 28px; height: 28px; } }
+
+/* Signature du pied de page */
+.pied-signature { margin-top: 14px; font-size: 12px; font-weight: 700; letter-spacing: .32em; text-transform: uppercase; color: #7DD3FC; }
+@media (prefers-reduced-motion: reduce) { .logo .s-halo { animation: none; } }
+.admin .barre-laterale .logo { font-size: 17.5px; gap: 7px; }
+.admin .barre-laterale .logo .symbole { width: 30px; height: 30px; }

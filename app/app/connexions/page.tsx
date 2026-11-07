@@ -11,7 +11,7 @@ const MESSAGES: Record<string, string> = {
   annule: 'Connexion annulée.',
   etat: 'La connexion a expiré, recommence.',
   echange: 'Le service a refusé la connexion. Réessaie dans un instant.',
-  indisponible: 'Ce service n’est pas encore activé sur Coach Trail.',
+  indisponible: 'Ce service n’est pas encore activé sur Monotrace.',
 };
 
 export default async function Connexions({ searchParams }: { searchParams: Promise<{ ok?: string; erreur?: string }> }) {
@@ -73,7 +73,7 @@ export default async function Connexions({ searchParams }: { searchParams: Promi
               <div className="row" style={{ gap: 6, marginTop: 6 }}><span className="badge"><IcSync /> Import des sorties</span></div>
             </div>
           </div>
-          <p className="small muted">Apple Santé ne s’ouvre qu’aux apps iPhone. En attendant l’app Coach Trail pour iPhone, active l’envoi automatique de tes sorties Apple Watch vers Strava, puis connecte Strava ici.</p>
+          <p className="small muted">Apple Santé ne s’ouvre qu’aux apps iPhone. En attendant l’app Monotrace pour iPhone, active l’envoi automatique de tes sorties Apple Watch vers Strava, puis connecte Strava ici.</p>
           <div className="connexion-pied"><span className="small muted">App iPhone en préparation.</span></div>
         </article>
       </div>

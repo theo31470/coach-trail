@@ -1,6 +1,6 @@
 {
-  "name": "coach-trail",
-  "version": "0.6.0",
+  "name": "monotrace",
+  "version": "0.7.0",
   "private": true,
   "scripts": {
     "dev": "next dev",

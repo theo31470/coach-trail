@@ -1,11 +1,10 @@
-import Link from 'next/link';
-import { Marque } from '@/components/Logo';
+import Logo from '@/components/Logo';
 import { NavLaterale, OngletsBas } from '@/components/NavApp';
 import { IcAlerte, IcAujourdhui, IcJournal, IcMembres, IcProgression, IcReglages } from '@/components/Icones';
 import { staffConnecte } from '@/lib/donnees';
 import { initiales, nomAffiche } from '@/lib/format';
 
-export const metadata = { title: { default: 'Administration', template: '%s · Admin Coach Trail' } };
+export const metadata = { title: { default: 'Administration', template: '%s · Admin Monotrace' } };
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
   const { supabase, profil } = await staffConnecte();
@@ -23,7 +22,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   return (
     <div className="coquille admin" data-theme="clair">
       <aside className="barre-laterale">
-        <Link href="/admin" className="logo"><Marque /> Admin</Link>
+        <Logo href="/admin" ton="nuit" suffixe="Admin" />
         <NavLaterale liens={liens} sections={[{ titre: 'Application', liens: [{ href: '/app', libelle: 'Retour à mon espace', icone: <IcAujourdhui /> }] }]} />
         <div className="bas">
           <div className="avatar" style={{ background: 'var(--accent)' }}>{initiales(profil)}</div>

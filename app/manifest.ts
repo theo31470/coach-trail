@@ -2,14 +2,14 @@ import type { MetadataRoute } from 'next';
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'Coach Trail',
-    short_name: 'Coach Trail',
+    name: 'Monotrace, ton coach trail',
+    short_name: 'Monotrace',
     description: 'Ton coach trail et running : un plan qui s’adapte chaque jour, des séances envoyées à ta montre.',
     start_url: '/app?source=app',
     scope: '/',
     display: 'standalone',
     orientation: 'portrait',
-    background_color: '#F5F8FF',
+    background_color: '#0A1A3F',
     theme_color: '#1D5BFF',
     lang: 'fr',
     categories: ['sports', 'health', 'fitness'],

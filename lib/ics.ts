@@ -20,14 +20,14 @@ const jour = (iso: string) => iso.replace(/-/g, '');
 
 export function planVersIcs(plan: Plan, o: { course?: string | null; dateCourse?: string | null; site: string }) {
   const tampon = new Date().toISOString().replace(/[-:]/g, '').replace(/\.\d+/, '');
-  const lignes = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Coach Trail//Plan//FR', 'CALSCALE:GREGORIAN', 'METHOD:PUBLISH',
-    'X-WR-CALNAME:Coach Trail · mon plan', 'X-WR-TIMEZONE:Europe/Paris', 'REFRESH-INTERVAL;VALUE=DURATION:PT6H'];
+  const lignes = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Monotrace//Plan//FR', 'CALSCALE:GREGORIAN', 'METHOD:PUBLISH',
+    'X-WR-CALNAME:Monotrace · mon plan', 'X-WR-TIMEZONE:Europe/Paris', 'REFRESH-INTERVAL;VALUE=DURATION:PT6H'];
   for (const s of plan.semaines) {
     for (const seance of s.seances) {
       const d = detaillerSeance(seance);
       const titre = seance.type === 'course' ? `🏁 ${o.course || 'Jour de course'}` : `🏃 ${d.titre} · ${duree(seance.dureeMin)}`;
       const description = [d.resume, '', `Pourquoi : ${seance.pourquoi}`, '', ...d.conseils.map((c) => `• ${c}`), '', `${o.site}/app/seance/${encodeURIComponent(seance.id)}`].join('\n');
-      lignes.push('BEGIN:VEVENT', `UID:${seance.id}@coach-trail`, `DTSTAMP:${tampon}`,
+      lignes.push('BEGIN:VEVENT', `UID:${seance.id}@monotrace.fr`, `DTSTAMP:${tampon}`,
         `DTSTART;VALUE=DATE:${jour(seance.date)}`, `DTEND;VALUE=DATE:${jour(ajouterJoursIso(seance.date, 1))}`,
         plier(`SUMMARY:${echapper(titre)}`), plier(`DESCRIPTION:${echapper(description)}`),
         plier(`URL:${o.site}/app/seance/${encodeURIComponent(seance.id)}`), 'TRANSP:TRANSPARENT', 'END:VEVENT');

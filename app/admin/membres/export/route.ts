@@ -24,7 +24,7 @@ export async function GET(request: NextRequest) {
   return new NextResponse(`﻿${lignes.join('\n')}`, {
     headers: {
       'Content-Type': 'text/csv; charset=utf-8',
-      'Content-Disposition': `attachment; filename="membres-coach-trail-${new Date().toISOString().slice(0, 10)}.csv"`,
+      'Content-Disposition': `attachment; filename="membres-monotrace-${new Date().toISOString().slice(0, 10)}.csv"`,
     },
   });
 }

@@ -27,7 +27,7 @@ export default async function Alertes({ searchParams }: { searchParams: Promise<
 
   return (
     <div>
-      <div className="titre-page"><div><h1>Alertes santé</h1><p>Séances notées avec une douleur de 3/10 ou plus. Coach Trail ne pose pas de diagnostic : contacte le membre et oriente-le vers un professionnel si besoin.</p></div></div>
+      <div className="titre-page"><div><h1>Alertes santé</h1><p>Séances notées avec une douleur de 3/10 ou plus. Monotrace ne pose pas de diagnostic : contacte le membre et oriente-le vers un professionnel si besoin.</p></div></div>
       <div className="onglets">
         <Link href="/admin/alertes" aria-current={!traitees ? 'page' : undefined}>À traiter</Link>
         <Link href="/admin/alertes?vue=traitees" aria-current={traitees ? 'page' : undefined}>Traitées</Link>

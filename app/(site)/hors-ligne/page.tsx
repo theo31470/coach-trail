@@ -5,7 +5,7 @@ export default function HorsLigne() {
     <div className="auth">
       <div className="carte stack" style={{ textAlign: 'center' }}>
         <h1>Pas de réseau</h1>
-        <p className="muted">Tu es peut-être sur le sentier. Coach Trail se mettra à jour dès que la connexion revient.</p>
+        <p className="muted">Tu es peut-être sur le sentier. Monotrace se mettra à jour dès que la connexion revient.</p>
       </div>
     </div>
   );

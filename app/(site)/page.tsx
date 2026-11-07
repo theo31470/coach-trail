@@ -51,12 +51,12 @@ const MONTRES = [
 ];
 
 const FAQ = [
-  { q: 'Comment mes séances sont-elles calculées ?', r: 'Par le moteur d’entraînement de Coach Trail, écrit pour le trail : périodisation, calcul de la charge, règles de sécurité. Les mêmes données donnent toujours le même plan, et chaque décision t’est expliquée.' },
+  { q: 'Comment mes séances sont-elles calculées ?', r: 'Par le moteur d’entraînement de Monotrace, écrit pour le trail : périodisation, calcul de la charge, règles de sécurité. Les mêmes données donnent toujours le même plan, et chaque décision t’est expliquée.' },
   { q: 'Quelles montres sont compatibles ?', r: 'Toutes les montres Garmin récentes reçoivent tes séances bloc par bloc. COROS et Polar remontent tes sorties, Strava aussi (y compris celles d’une Apple Watch). Sans connexion, chaque séance se télécharge en fichier .FIT ou s’ajoute à ton agenda.' },
   { q: 'Faut-il une montre ?', r: 'Non. Le plan se pilote aussi au ressenti, et le lecteur de l’app te guide bloc par bloc avec un signal sonore. Note ta durée et ton ressenti après la séance : c’est tout ce dont le moteur a besoin.' },
   { q: 'Comment fonctionne le suivi quotidien ?', r: 'Chaque matin, une notification et un e-mail te présentent ta séance. Tu fais ton bilan en dix secondes, le moteur adapte la séance. Après ta sortie, il l’analyse et te dit quand tu seras prêt pour la prochaine séance intense.' },
   { q: 'Pour quel niveau et quelles distances ?', r: 'Du premier trail court à l’ultra, et sur route du 10 km au marathon. Le questionnaire de départ fixe ton niveau, ton volume actuel et tes disponibilités ; le plan part de là.' },
-  { q: 'Et si j’ai mal ?', r: 'Signale-le dans ton bilan du matin ou après ta séance. Une douleur forte transforme la séance en repos et t’invite à consulter un professionnel de santé. Coach Trail ne pose pas de diagnostic.' },
+  { q: 'Et si j’ai mal ?', r: 'Signale-le dans ton bilan du matin ou après ta séance. Une douleur forte transforme la séance en repos et t’invite à consulter un professionnel de santé. Monotrace ne pose pas de diagnostic.' },
   { q: 'Où sont stockées mes données ?', r: 'Dans une base hébergée en Europe (Paris). Tu peux exporter ou supprimer toutes tes données à tout moment depuis ton compte.' },
 ];
 
@@ -69,7 +69,7 @@ export default function Accueil() {
           <div className="v-hero-texte">
             <p className="v-pastille"><span /> Bêta gratuite · trail et running</p>
             <h1>Chaque matin, ta séance s’adapte à toi.</h1>
-            <p className="v-lead">Coach Trail construit ton plan jusqu’au jour de ta course, l’ajuste à ta forme chaque matin, l’envoie à ta montre et analyse chacune de tes sorties.</p>
+            <p className="v-lead">Monotrace construit ton plan jusqu’au jour de ta course, l’ajuste à ta forme chaque matin, l’envoie à ta montre et analyse chacune de tes sorties.</p>
             <div className="v-cta">
               <Link href="/inscription" className="btn btn-primary btn-l">Créer mon plan gratuit</Link>
               <Link href="#journee" className="btn btn-ghost btn-l">Voir une journée type</Link>
@@ -90,7 +90,7 @@ export default function Accueil() {
         <div className="conteneur">
           <div className="v-intro">
             <p className="v-surtitre">Accompagné tous les jours</p>
-            <h2>Une journée avec Coach Trail</h2>
+            <h2>Une journée avec Monotrace</h2>
             <p>Pas un PDF de douze semaines qu’on oublie au bout de dix jours : un coach qui te suit du réveil jusqu’au soir, chaque jour de ta préparation.</p>
           </div>
           <ol className="v-journee">
@@ -113,7 +113,7 @@ export default function Accueil() {
           <div>
             <p className="v-surtitre">Un vrai logiciel d’entraînement</p>
             <h2>Chaque séance est calculée, chaque décision expliquée.</h2>
-            <p className="v-texte-nuit">Le moteur de Coach Trail applique les principes des entraîneurs de trail : périodisation en cinq phases, progression du volume et du dénivelé, contrôle de la charge et règles de sécurité. Les mêmes données donnent toujours le même plan.</p>
+            <p className="v-texte-nuit">Le moteur de Monotrace applique les principes des entraîneurs de trail : périodisation en cinq phases, progression du volume et du dénivelé, contrôle de la charge et règles de sécurité. Les mêmes données donnent toujours le même plan.</p>
             <dl className="v-regles">
               {REGLES.map(([v, t]) => <div key={t}><dt>{v}</dt><dd>{t}</dd></div>)}
             </dl>
@@ -177,7 +177,7 @@ export default function Accueil() {
           <div>
             <p className="v-surtitre">Ta montre fait le reste</p>
             <h2>Ta séance au poignet, ta sortie dans ton plan.</h2>
-            <p className="v-texte">Connecte ton compte une fois. Chaque séance part vers ta montre avec ses blocs et ses cibles, et chaque sortie revient dans Coach Trail pour l’analyse du soir.</p>
+            <p className="v-texte">Connecte ton compte une fois. Chaque séance part vers ta montre avec ses blocs et ses cibles, et chaque sortie revient dans Monotrace pour l’analyse du soir.</p>
             <ul className="v-marques">
               {MONTRES.map((m) => (
                 <li key={m.nom} style={{ '--marque': m.couleur } as React.CSSProperties}><span className="v-marque-logo">{m.nom[0]}</span><div><b>{m.nom}</b><small>{m.role}</small></div></li>
@@ -231,7 +231,7 @@ export default function Accueil() {
             </div>
             <Link href="/inscription" className="btn btn-blanc btn-l">Créer mon plan</Link>
           </div>
-          <p className="tiny mt-16">Coach Trail ne remplace pas un avis médical. Un certificat d’aptitude est recommandé avant de reprendre l’entraînement.</p>
+          <p className="tiny mt-16">Monotrace ne remplace pas un avis médical. Un certificat d’aptitude est recommandé avant de reprendre l’entraînement.</p>
         </div>
       </section>
     </div>

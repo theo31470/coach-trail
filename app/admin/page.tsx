@@ -39,7 +39,7 @@ export default async function TableauDeBord() {
   return (
     <div>
       <div className="titre-page">
-        <div><h1>Tableau de bord</h1><p>Vue d’ensemble de Coach Trail, en temps réel.</p></div>
+        <div><h1>Tableau de bord</h1><p>Vue d’ensemble de Monotrace, en temps réel.</p></div>
         <Link href="/admin/membres" className="btn btn-dark btn-s">Gérer les membres</Link>
       </div>
 

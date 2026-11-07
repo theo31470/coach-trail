@@ -87,10 +87,10 @@ export function InstallerApp() {
       <div className="grow">
         <b>L’app sur ton téléphone</b>
         <p className="small muted">
-          {mode === 'installee' && 'Installée : tu utilises Coach Trail en plein écran.'}
-          {mode === 'android' && 'Installe Coach Trail sur ton écran d’accueil, en plein écran comme une app.'}
+          {mode === 'installee' && 'Installée : tu utilises Monotrace en plein écran.'}
+          {mode === 'android' && 'Installe Monotrace sur ton écran d’accueil, en plein écran comme une app.'}
           {mode === 'ios' && 'Dans Safari : touche le bouton Partager, puis « Sur l’écran d’accueil ».'}
-          {mode === 'autre' && 'Ouvre coach-trail sur ton téléphone puis ajoute-le à l’écran d’accueil depuis le menu du navigateur.'}
+          {mode === 'autre' && 'Ouvre monotrace.fr sur ton téléphone puis ajoute-le à l’écran d’accueil depuis le menu du navigateur.'}
         </p>
       </div>
       {mode === 'android' && invite && <button className="btn btn-primary btn-s" onClick={() => invite.prompt()}>Installer</button>}

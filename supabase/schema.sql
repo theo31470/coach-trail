@@ -1,4 +1,4 @@
--- Coach Trail — schéma de base de données (Supabase / Postgres)
+-- Monotrace (ex-Coach Trail) — schéma de base de données (Supabase / Postgres)
 -- Membres, objectifs, plans, séances réalisées, administration.
 
 -- ───────────── Réglages de l'application ─────────────
