@@ -7,7 +7,10 @@
  *  - VFC (variabilité cardiaque) nocturne : rapport à la moyenne des 28 derniers jours.
  *    < 85 % → −8 pts ; < 75 % → −16 pts ; ≥ 105 % → +3 pts.
  *  - Body Battery rechargée pendant la nuit : < 25 → −5 pts.
- *  Le total des pénalités est plafonné à −30 pts. Il faut au moins 5 jours de mesures pour comparer.
+ *  - Respiration nocturne : +1 respiration/min au-dessus de la normale → −5 pts ; +2 et plus → −10 pts.
+ *  - Température cutanée : +0,5 °C au-dessus de la normale → −8 pts ; +1 °C et plus → −15 pts (souvent un début de maladie).
+ *  - SpO2 nocturne moyenne < 92 % → −5 pts.
+ *  Le total des pénalités est plafonné à −35 pts. Il faut au moins 5 jours de mesures pour comparer.
  */
 
 export interface MesureSanteDb {
@@ -24,6 +27,12 @@ export interface MesureSanteDb {
   vfc_ms: number | null;
   stress_moyen: number | null;
   body_battery_recharge: number | null;
+  respiration_nuit: number | null;
+  spo2_moyen: number | null;
+  spo2_min: number | null;
+  temp_peau_ecart: number | null;
+  poids_kg: number | null;
+  courbe_stress: { debut: number; pas: number; stress: (number | null)[]; bb: (number | null)[] } | null;
   maj_le: string;
 }
 
@@ -33,7 +42,7 @@ export interface Indicateur { cle: string; libelle: string; valeur: string; deta
 
 export interface LectureMontre {
   date: string;
-  points: number;                // ajustement du score de forme (−30 à +3)
+  points: number;                // ajustement du score de forme (−35 à +3)
   signaux: string[];             // phrases ajoutées aux raisons du moteur
   sommeilSuggere: number | null; // 1 à 5
   indicateurs: Indicateur[];
@@ -119,7 +128,33 @@ export function lireMontre(jour: MesureSanteDb | null, historique: MesureSanteDb
     indicateurs.push({ cle: 'bb', libelle: 'Body Battery', valeur: `+${bb}`, detail: 'rechargée cette nuit', tendance: bb >= 50 ? 'mieux' : bb >= 25 ? 'normal' : 'vigilance' });
   }
 
+  // Respiration nocturne
+  if (jour.respiration_nuit != null) {
+    const ref = moyenne(precedents.map((h) => h.respiration_nuit));
+    const ecart = ref != null ? Math.round((jour.respiration_nuit - ref) * 10) / 10 : null;
+    let t: Tendance = 'normal';
+    if (ecart != null && ecart >= 2) { points -= 10; t = 'alerte'; signaux.push(`Respiration nocturne à ${jour.respiration_nuit} par minute, ${ecart.toLocaleString('fr-FR')} au-dessus de ta normale : un signe fréquent de maladie qui arrive.`); }
+    else if (ecart != null && ecart >= 1) { points -= 5; t = 'vigilance'; signaux.push(`Respiration nocturne un peu plus rapide que d'habitude (+${ecart.toLocaleString('fr-FR')}/min).`); }
+    indicateurs.push({ cle: 'resp', libelle: 'Respiration', valeur: `${jour.respiration_nuit.toLocaleString('fr-FR')}/min`, detail: ecart == null ? 'référence en cours' : `${ecart > 0 ? '+' : ''}${ecart.toLocaleString('fr-FR')} vs ta normale`, tendance: t });
+  }
+
+  // Température cutanée (écart à la référence calculée par la montre)
+  if (jour.temp_peau_ecart != null) {
+    const e = jour.temp_peau_ecart;
+    let t: Tendance = 'normal';
+    if (e >= 1) { points -= 15; t = 'alerte'; signaux.push(`Température cutanée de la nuit +${e.toLocaleString('fr-FR')} °C au-dessus de ta normale : ton corps lutte peut-être contre une infection.`); }
+    else if (e >= 0.5) { points -= 8; t = 'vigilance'; signaux.push(`Température cutanée de la nuit un peu élevée (+${e.toLocaleString('fr-FR')} °C).`); }
+    indicateurs.push({ cle: 'temp', libelle: 'Température peau', valeur: `${e > 0 ? '+' : ''}${e.toLocaleString('fr-FR')} °C`, detail: 'vs ta normale', tendance: t });
+  }
+
+  // Saturation en oxygène
+  if (jour.spo2_moyen != null) {
+    let t: Tendance = 'normal';
+    if (jour.spo2_moyen < 92) { points -= 5; t = 'vigilance'; signaux.push(`Saturation en oxygène moyenne de ${jour.spo2_moyen} % cette nuit (altitude, rhume, ou nuit agitée).`); }
+    indicateurs.push({ cle: 'spo2', libelle: 'SpO2 nocturne', valeur: `${jour.spo2_moyen} %`, detail: jour.spo2_min != null ? `minimum ${jour.spo2_min} %` : undefined, tendance: t });
+  }
+
   if (!indicateurs.length) return null;
   const joursReference = Math.max(...[precedents.filter((h) => h.fc_repos != null).length, precedents.filter((h) => h.vfc_ms != null).length]);
-  return { date: jour.date, points: Math.max(-30, points), signaux, sommeilSuggere, indicateurs, joursReference };
+  return { date: jour.date, points: Math.max(-35, points), signaux, sommeilSuggere, indicateurs, joursReference };
 }

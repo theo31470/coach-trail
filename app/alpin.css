@@ -330,7 +330,7 @@ input[type='range'] { accent-color: var(--bleu); }
 .carte-nuit { margin-bottom: 14px; padding: 14px 16px 12px; border-radius: 16px;
   background: linear-gradient(135deg, #0A1A3F, #13286B); color: #fff; }
 .carte-nuit-titre { font-size: 13px; font-weight: 700; color: #BFE9FF; margin-bottom: 10px; }
-.nuit-indicateurs { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.nuit-indicateurs { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(132px, 1fr)); gap: 8px; }
 @media (max-width: 640px) { .nuit-indicateurs { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .nuit-ind { display: flex; flex-direction: column; gap: 2px; padding: 9px 11px; border-radius: 12px; background: rgba(255, 255, 255, .07); border: 1px solid rgba(255, 255, 255, .08); }
 .nuit-lib { font-size: 12px; color: #A9B8DD; }
@@ -345,3 +345,41 @@ input[type='range'] { accent-color: var(--bleu); }
 .carte-nuit .muted { color: #A9B8DD !important; }
 .bilan-montre { margin: -4px 0 12px; }
 .bilan-echelle button.suggere { border-color: var(--bleu); box-shadow: 0 0 0 3px rgba(29, 91, 255, .15); }
+
+/* ───── Analyse détaillée d'une sortie (courbes de la montre) ───── */
+.courbes { margin-top: 20px; padding: 22px; border-radius: 20px; background: var(--surface); border: 1px solid var(--line); }
+.courbes-tete { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.courbes-chiffres { display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 10px; margin: 16px 0 0; }
+.courbes-chiffres div { padding: 10px 12px; border-radius: 12px; background: var(--bleu-glace); }
+.courbes-chiffres dt { font-size: 12px; color: var(--ink-3, var(--ink-2)); }
+.courbes-chiffres dd { margin: 2px 0 0; font-size: 17px; font-weight: 800; font-stretch: 110%; color: var(--ink); }
+.courbes-constats { margin: 16px 0 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+.courbes-constats li { position: relative; padding-left: 18px; font-size: 14.5px; color: var(--ink-2); }
+.courbes-constats li::before { content: ''; position: absolute; left: 2px; top: 8px; width: 7px; height: 7px; border-radius: 50%; background: var(--bleu); }
+.courbes-graphes { position: relative; margin-top: 18px; touch-action: pan-y; cursor: crosshair; }
+.panneau { margin-bottom: 6px; }
+.panneau-titre { font-size: 12px; font-weight: 700; color: var(--ink-2); margin: 0 0 2px; }
+.panneau svg { display: block; max-width: 100%; overflow: visible; }
+.panneau .grille { stroke: var(--line); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.panneau .axe { font-size: 11px; fill: var(--ink-2); opacity: .8; }
+.panneau .curseur { stroke: var(--ink-2); stroke-width: 1; stroke-dasharray: 3 3; vector-effect: non-scaling-stroke; }
+.courbes-axe { text-align: right; margin: 2px 0 0; }
+.courbes-infobulle { position: absolute; right: 0; top: -6px; z-index: 2; display: flex; gap: 10px; align-items: center; padding: 6px 10px; border-radius: 10px;
+  background: var(--bleu-nuit); color: #fff; font-size: 12.5px; transition: opacity .15s; pointer-events: none; }
+.courbes-infobulle[data-visible='non'] { opacity: 0; }
+.courbes-infobulle span { color: #C9D6F5; }
+.courbes-bloc { margin-top: 22px; }
+.courbes-bloc h4 { margin-bottom: 10px; }
+.zones-barre { display: flex; gap: 2px; height: 14px; border-radius: 7px; overflow: hidden; }
+.zones-barre span { min-width: 3px; }
+.zones-legende { list-style: none; margin: 10px 0 0; padding: 0; display: grid; gap: 4px; }
+.zones-legende li { display: grid; grid-template-columns: 12px 1fr auto 44px; gap: 10px; align-items: center; font-size: 13.5px; color: var(--ink-2); padding: 3px 6px; border-radius: 8px; }
+.zones-legende li.visee { background: var(--bleu-glace); color: var(--ink); font-weight: 600; }
+.zones-legende i { width: 12px; height: 12px; border-radius: 3px; }
+.zones-legende b { color: var(--ink); font-weight: 700; }
+.zones-legende em { font-style: normal; text-align: right; }
+.table-defile { overflow-x: auto; }
+.table-courbes { width: 100%; border-collapse: collapse; font-size: 13.5px; font-variant-numeric: tabular-nums; }
+.table-courbes th { text-align: left; font-weight: 600; font-size: 12px; color: var(--ink-2); padding: 6px 8px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+.table-courbes td { padding: 7px 8px; border-bottom: 1px solid var(--line); white-space: nowrap; color: var(--ink); }
+@media (max-width: 560px) { .courbes { padding: 16px; } }

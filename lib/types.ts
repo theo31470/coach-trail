@@ -80,6 +80,8 @@ export interface SeanceRealiseeDb {
   user_id: string;
   plan_id: string | null;
   seance_id: string | null;
+  source?: string;
+  source_id?: string | null;
   type_prevu: string | null;
   date: string;
   duree_min: number;

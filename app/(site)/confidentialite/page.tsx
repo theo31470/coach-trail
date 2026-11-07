@@ -36,13 +36,13 @@ export default function Confidentialite() {
         <li><strong>Ton profil sportif</strong> : niveau, volume d’entraînement habituel, jours disponibles, chrono de référence, course objectif ; et si tu les renseignes, fréquence cardiaque maximale et de repos, poids, taille, date de naissance.</li>
         <li><strong>Ton bilan du matin</strong> : qualité du sommeil, énergie, état des jambes, douleur éventuelle et sa zone.</li>
         <li><strong>Tes séances réalisées</strong> : durée, distance, dénivelé, ressenti, douleur, commentaires.</li>
-        <li><strong>Les données de tes montres et applis connectées</strong>, si tu en relies une : tes sorties, et pour les montres qui les mesurent, ton sommeil, ta fréquence cardiaque au repos, ta variabilité cardiaque, ton niveau de stress et ta Body Battery (détails plus bas).</li>
+        <li><strong>Les données de tes montres et applis connectées</strong>, si tu en relies une : tes sorties et leurs courbes, et pour les montres qui les mesurent, ton sommeil, ta fréquence cardiaque au repos, ta variabilité cardiaque, ta respiration, ta saturation en oxygène, ta température cutanée, ton stress et ta Body Battery (détails plus bas).</li>
         <li><strong>Tes préférences</strong> : unités, thème, réglages des notifications et de l’e-mail du matin ; et, si tu actives les notifications, l’identifiant d’abonnement fourni par ton navigateur.</li>
       </ul>
 
       <h2>Données de santé</h2>
       <p>
-        Le sommeil, les douleurs, la fréquence cardiaque, la variabilité cardiaque et le stress sont des données de santé. Nous ne les collectons
+        Le sommeil, les douleurs, la fréquence cardiaque, la variabilité cardiaque, la respiration, la saturation en oxygène, la température cutanée et le stress sont des données de santé. Nous ne les collectons
         qu’avec ton consentement explicite : celui donné à l’inscription, et, pour les mesures de ta montre, l’autorisation que tu donnes à Garmin
         (ou à un autre service) en connectant ton compte. Tu peux retirer ces consentements à tout moment dans ton compte, rubrique
         Confidentialité, et sur la page Montres.
@@ -62,8 +62,10 @@ export default function Confidentialite() {
         date, durée, distance, dénivelé, fréquence cardiaque moyenne et nom de l’activité.
       </p>
       <p>
-        Avec Garmin, Monotrace reçoit aussi, chaque matin, les mesures de ta nuit et de ta récupération : durée, phases et score de sommeil,
-        fréquence cardiaque au repos, variabilité cardiaque nocturne, stress moyen et Body Battery. Le moteur de Monotrace les compare à tes propres
+        Avec Garmin, Monotrace reçoit aussi les courbes détaillées de chaque sortie (fréquence cardiaque, allure, altitude, cadence, puissance,
+        seconde par seconde) et, chaque matin, les mesures de ta nuit et de ta récupération : durée, phases et score de sommeil, fréquence
+        cardiaque au repos, variabilité cardiaque nocturne, fréquence respiratoire, saturation en oxygène, écart de température cutanée, stress,
+        Body Battery et, si tu as une balance Garmin, ton poids. Les autres catégories que Garmin peut proposer sont ignorées et jamais stockées. Le moteur de Monotrace les compare à tes propres
         valeurs des quatre dernières semaines pour ajuster ta séance du jour. Ces calculs sont faits par notre logiciel, selon des règles fixes ;
         aucune de ces données n’est analysée par un outil d’intelligence artificielle.
       </p>
