@@ -285,7 +285,7 @@ function SectionAbonnement({ profil }: Props) {
       </Bloc>
       <Bloc titre="Premium · bientôt" description="Le paiement en ligne n’est pas encore ouvert. Tu seras prévenu avant toute facturation, rien ne sera prélevé sans ton accord.">
         <ul className="small muted" style={{ margin: 0, paddingLeft: 18 }}>
-          <li>Connexion Garmin, COROS et Polar</li><li>Coach IA : questions et ajustements en langage naturel</li><li>Plusieurs objectifs dans la saison</li>
+          <li>Plusieurs objectifs dans la saison</li><li>Analyses avancées : allure, cardio, dénivelé</li><li>App iPhone avec Apple Santé</li>
         </ul>
       </Bloc>
     </div>
@@ -295,15 +295,12 @@ function SectionAbonnement({ profil }: Props) {
 function SectionConfidentialite({ profil, nbSeances }: Props) {
   const { enCours, lancer, retour } = useEnregistrement();
   const [sante, setSante] = useState(profil.consentement_sante);
-  const [ia, setIa] = useState(profil.consentement_ia);
   const [confirmation, setConfirmation] = useState('');
   return (
     <div className="stack">
       <Bloc titre="Consentements">
         <Interrupteur titre="Données de santé" texte="Ressenti, douleurs, sommeil et fréquence cardiaque servent à adapter ton plan. Sans ce consentement, le bilan hebdomadaire ne peut pas t’ajuster."
           coche={sante} onChange={(v) => { setSante(v); lancer(() => majProfil({ consentement_sante: v })); }} />
-        <Interrupteur titre="Analyse par le coach IA" texte="Le futur coach IA pourra lire tes séances pour te conseiller."
-          coche={ia} onChange={(v) => { setIa(v); lancer(() => majProfil({ consentement_ia: v })); }} />
         {retour}
       </Bloc>
       <Bloc titre="Exporter mes données" description={`Profil, objectifs, plans et ${nbSeances} séances, au format JSON.`}>

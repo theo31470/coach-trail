@@ -30,7 +30,6 @@ interface Reponses {
   jours: Jour[];
   blessure?: boolean;
   sante: boolean;
-  ia: boolean;
 }
 
 type Etape = 'accueil' | 'course' | 'distance' | 'relief' | 'quand' | 'sorties' | 'duree' | 'terrain' | 'experience' | 'jours' | 'blessure' | 'sommet';
@@ -78,7 +77,7 @@ function joursParDefaut(sorties: number): Jour[] {
 
 export default function Assistant({ prenom: prenomInitial, dejaFait }: { prenom: string; dejaFait: boolean }) {
   const router = useRouter();
-  const [r, setR] = useState<Reponses>({ prenom: prenomInitial, jours: ['mar', 'jeu', 'dim'], sante: false, ia: false });
+  const [r, setR] = useState<Reponses>({ prenom: prenomInitial, jours: ['mar', 'jeu', 'dim'], sante: false });
   const [i, setI] = useState(0);
   const [choisi, setChoisi] = useState<string | null>(null);
   const [erreur, setErreur] = useState('');
@@ -141,7 +140,7 @@ export default function Assistant({ prenom: prenomInitial, dejaFait }: { prenom:
           niveau: r.niveau ?? 'intermediaire', volume_actuel_min: volumeMin, dplus_actuel_m: dplusHebdo,
           blessure_recente: r.blessure ?? false, jours_dispo: r.jours, jour_longue: longue,
           ref_distance_km: null, ref_temps_min: null, fc_max: null, fc_repos: null,
-          date_naissance: null, sexe: null, consentement_sante: r.sante, consentement_ia: r.ia,
+          date_naissance: null, sexe: null, consentement_sante: r.sante, consentement_ia: false,
         }),
         new Promise((ok) => setTimeout(ok, 1600)),
       ]);
@@ -317,10 +316,6 @@ export default function Assistant({ prenom: prenomInitial, dejaFait }: { prenom:
                   <label className="accord">
                     <input type="checkbox" checked={r.sante} onChange={(e) => setR({ ...r, sante: e.target.checked })} />
                     <span><b>J’accepte que mon ressenti, mes douleurs et mon sommeil servent à ajuster mon plan.</b> Obligatoire, retirable à tout moment dans ton compte.</span>
-                  </label>
-                  <label className="accord">
-                    <input type="checkbox" checked={r.ia} onChange={(e) => setR({ ...r, ia: e.target.checked })} />
-                    <span>J’accepte que le futur coach IA lise mes séances pour me conseiller. Facultatif.</span>
                   </label>
                   {erreur && <p className="montee-erreur" role="alert">{erreur}</p>}
                   <button className="btn btn-primary btn-l montee-go" disabled={enCours} onClick={creer}>Atteindre le sommet</button>

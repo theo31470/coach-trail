@@ -2,8 +2,8 @@
  * Moteur d'entraînement trail / running — v0.1
  *
  * Construit un plan jusqu'à une course objectif, puis l'ajuste chaque semaine
- * à partir des séances réalisées. L'IA ne modifie jamais le plan directement :
- * elle propose, et `validerSemaine` vérifie avant tout enregistrement.
+ * à partir des séances réalisées. Toute semaine modifiée passe par
+ * `validerSemaine`, qui vérifie les règles de sécurité avant enregistrement.
  *
  * Toutes les constantes (pourcentages, plafonds, seuils) sont des valeurs de
  * départ, à faire relire et valider par un coach diplômé avant le lancement.
@@ -112,7 +112,7 @@ export interface Decision {
   supprimerQualite: boolean;
   alerteSante?: string;
   acwr: number | null;
-  raisons: string[];          // explications que l'IA reformule pour l'athlète
+  raisons: string[];          // explications affichées à l'athlète
 }
 
 // ─────────────────────────── Constantes ───────────────────────────
@@ -629,7 +629,7 @@ export function appliquerDecision(semaine: SemainePlan, d: Decision): SemainePla
   };
 }
 
-// ──────────────── Étape 6 : validation des propositions de l'IA ────────────────
+// ──────────────── Étape 6 : validation des règles de sécurité ────────────────
 
 export interface Violation { regle: string; detail: string }
 

@@ -7,7 +7,7 @@ export default function Methode() {
     <article className="page-texte">
       <div className="eyebrow">La méthode</div>
       <h1 className="mt-8">Comment Coach Trail construit ton plan</h1>
-      <p>Le plan n’est pas inventé par une IA. Il est calculé par un moteur de règles issu des principes de l’entraînement en endurance. Toutes les valeurs sont relues avec un regard d’entraîneur avant chaque évolution.</p>
+      <p>Le plan est calculé par un moteur de règles issu des principes de l’entraînement en endurance. Toutes les valeurs sont relues avec un regard d’entraîneur avant chaque évolution.</p>
 
       <h2>1. Tes zones</h2>
       <p>Cinq zones d’intensité, de la récupération à la VMA. Chacune s’exprime en ressenti (de 1 à 10), en fréquence cardiaque si tu connais ta FC max et de repos (méthode de Karvonen), et en allure si tu as un chrono récent sur route.</p>

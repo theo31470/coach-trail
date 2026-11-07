@@ -1,5 +1,5 @@
 /**
- * Accompagnement quotidien, calculé par le moteur interne (aucune IA) :
+ * Accompagnement quotidien, calculé par le moteur interne :
  *  - bilan du matin → score de forme → adaptation de la séance du jour ;
  *  - retour après séance → comparaison prévu / réalisé → conseils et récupération.
  */

@@ -51,7 +51,7 @@ const MONTRES = [
 ];
 
 const FAQ = [
-  { q: 'Est-ce une intelligence artificielle ?', r: 'Non. Coach Trail repose sur un logiciel d’entraînement écrit pour le trail : périodisation, calcul de la charge, règles de sécurité. Les mêmes données donnent toujours le même plan, et chaque décision t’est expliquée.' },
+  { q: 'Comment mes séances sont-elles calculées ?', r: 'Par le moteur d’entraînement de Coach Trail, écrit pour le trail : périodisation, calcul de la charge, règles de sécurité. Les mêmes données donnent toujours le même plan, et chaque décision t’est expliquée.' },
   { q: 'Quelles montres sont compatibles ?', r: 'Toutes les montres Garmin récentes reçoivent tes séances bloc par bloc. COROS et Polar remontent tes sorties, Strava aussi (y compris celles d’une Apple Watch). Sans connexion, chaque séance se télécharge en fichier .FIT ou s’ajoute à ton agenda.' },
   { q: 'Faut-il une montre ?', r: 'Non. Le plan se pilote aussi au ressenti, et le lecteur de l’app te guide bloc par bloc avec un signal sonore. Note ta durée et ton ressenti après la séance : c’est tout ce dont le moteur a besoin.' },
   { q: 'Comment fonctionne le suivi quotidien ?', r: 'Chaque matin, une notification et un e-mail te présentent ta séance. Tu fais ton bilan en dix secondes, le moteur adapte la séance. Après ta sortie, il l’analyse et te dit quand tu seras prêt pour la prochaine séance intense.' },
@@ -111,7 +111,7 @@ export default function Accueil() {
         <Topo />
         <div className="conteneur v-moteur">
           <div>
-            <p className="v-surtitre">Un logiciel d’entraînement, pas une IA</p>
+            <p className="v-surtitre">Un vrai logiciel d’entraînement</p>
             <h2>Chaque séance est calculée, chaque décision expliquée.</h2>
             <p className="v-texte-nuit">Le moteur de Coach Trail applique les principes des entraîneurs de trail : périodisation en cinq phases, progression du volume et du dénivelé, contrôle de la charge et règles de sécurité. Les mêmes données donnent toujours le même plan.</p>
             <dl className="v-regles">

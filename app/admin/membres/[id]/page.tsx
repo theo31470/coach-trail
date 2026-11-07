@@ -142,7 +142,7 @@ export default async function FicheMembre({ params }: { params: Promise<{ id: st
               <dt>VMA estimée</dt><dd>{plan?.contenu.vmaKmh ? `${plan.contenu.vmaKmh.toLocaleString('fr-FR')} km/h` : '—'}</dd>
               <dt>Blessure récente</dt><dd>{m.blessure_recente ? 'Oui' : 'Non'}</dd>
               <dt>Naissance</dt><dd>{m.date_naissance ? dateCourte(m.date_naissance) : '—'}</dd>
-              <dt>Consentements</dt><dd>Santé : {m.consentement_sante ? 'oui' : 'non'} · IA : {m.consentement_ia ? 'oui' : 'non'}</dd>
+              <dt>Consentements</dt><dd>Données de santé : {m.consentement_sante ? 'oui' : 'non'}</dd>
             </dl>
           </div>
 
